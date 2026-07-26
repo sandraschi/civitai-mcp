@@ -1,3 +1,0 @@
-# Do not push to public GitHub / registries until Sandra explicitly lifts this.
-private=1
-reason=comms credentials + outbox until promotion pipeline dogfooded
