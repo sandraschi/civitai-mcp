@@ -1,0 +1,1146 @@
+[
+  {
+    "name": "post_1",
+    "description": "Dry-run test post",
+    "prompt": "Post a dry-run test toot about civitai-mcp.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "post",
+      "status_text": "Testing civitai-mcp dry-run."
+    }
+  },
+  {
+    "name": "post_2",
+    "description": "Unlisted repo pointer",
+    "prompt": "Share an unlisted pointer to kicad-mcp.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "post",
+      "status_text": "kicad-mcp: headless Gerber export.",
+      "visibility": "unlisted"
+    }
+  },
+  {
+    "name": "post_3",
+    "description": "Explicit dry-run post",
+    "prompt": "Try posting with explicit dry_run true.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "post",
+      "status_text": "Follow-up thread part 1.",
+      "visibility": "public",
+      "dry_run": true
+    }
+  },
+  {
+    "name": "reply_4",
+    "description": "Reply to mention",
+    "prompt": "Reply to status 110012345678901234 thanking them.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "reply",
+      "in_reply_to_id": "110012345678901234",
+      "status_text": "Thanks \u2014 link in repo README."
+    }
+  },
+  {
+    "name": "reply_5",
+    "description": "Reply using status_id alias",
+    "prompt": "Answer that thread about dry-run defaults.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "reply",
+      "status_id": "110098765432109876",
+      "status_text": "Good point about dry-run defaults."
+    }
+  },
+  {
+    "name": "boost_6",
+    "description": "Boost a community post",
+    "prompt": "Boost status 110011112222333344 for me.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "boost",
+      "status_id": "110011112222333344"
+    }
+  },
+  {
+    "name": "boost_7",
+    "description": "Dry-run boost",
+    "prompt": "Simulate boosting 110055566677788899 without going live.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "boost",
+      "status_id": "110055566677788899",
+      "dry_run": true
+    }
+  },
+  {
+    "name": "upload_media_8",
+    "description": "Upload icon",
+    "prompt": "Upload the civitai-mcp icon with alt text.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "upload_media",
+      "media_path": "D:\\Dev\\repos\\civitai-mcp\\assets\\icon.png",
+      "media_description": "civitai-mcp icon"
+    }
+  },
+  {
+    "name": "upload_media_9",
+    "description": "Upload screenshot",
+    "prompt": "Upload a dashboard screenshot for a future toot.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "upload_media",
+      "media_path": "C:\\Users\\Public\\Pictures\\screenshot.png",
+      "media_description": "Webapp dashboard screenshot"
+    }
+  },
+  {
+    "name": "timeline_10",
+    "description": "Home timeline",
+    "prompt": "What's on my home timeline?",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "timeline",
+      "timeline": "home"
+    }
+  },
+  {
+    "name": "timeline_11",
+    "description": "Local timeline",
+    "prompt": "Show local timeline for my instance.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "timeline",
+      "timeline": "local"
+    }
+  },
+  {
+    "name": "timeline_12",
+    "description": "Public federated timeline",
+    "prompt": "Show public federated timeline.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "timeline",
+      "timeline": "public"
+    }
+  },
+  {
+    "name": "notifications_13",
+    "description": "Fetch notifications inbox",
+    "prompt": "Check my Civitai notifications.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "notifications"
+    }
+  },
+  {
+    "name": "outbox_list_14",
+    "description": "List all outbox rows",
+    "prompt": "List everything in the Civitai outbox.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_list"
+    }
+  },
+  {
+    "name": "outbox_enqueue_15",
+    "description": "Enqueue fleet-style draft",
+    "prompt": "Queue a blender-mcp promotion draft for my review.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_enqueue",
+      "payload": {
+        "status_text": "blender-mcp: batch GLB export without GUI.",
+        "repo_id": "blender-mcp",
+        "campaign": "fleet-q3",
+        "visibility": "public",
+        "source": "agent"
+      }
+    }
+  },
+  {
+    "name": "outbox_enqueue_16",
+    "description": "Enqueue via status_text shorthand",
+    "prompt": "Enqueue a short manual draft unlisted.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_enqueue",
+      "status_text": "Manual draft from agent.",
+      "visibility": "unlisted"
+    }
+  },
+  {
+    "name": "outbox_approve_17",
+    "description": "Approve outbox item 1",
+    "prompt": "Approve outbox item 1 after I reviewed it.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_approve",
+      "outbox_id": 1
+    }
+  },
+  {
+    "name": "outbox_approve_18",
+    "description": "Approve outbox item 12",
+    "prompt": "Mark outbox 12 approved.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_approve",
+      "outbox_id": 12
+    }
+  },
+  {
+    "name": "outbox_publish_19",
+    "description": "Publish approved item 1",
+    "prompt": "Publish outbox 1 now.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_publish",
+      "outbox_id": 1
+    }
+  },
+  {
+    "name": "outbox_publish_20",
+    "description": "Dry-run publish item 5",
+    "prompt": "Dry-run publish outbox 5 to test flow.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_publish",
+      "outbox_id": 5,
+      "dry_run": true
+    }
+  },
+  {
+    "name": "outbox_reject_21",
+    "description": "Reject hype draft",
+    "prompt": "Reject outbox 3 \u2014 too hype.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_reject",
+      "outbox_id": 3,
+      "reason": "Too hype \u2014 remove 'revolutionary'"
+    }
+  },
+  {
+    "name": "outbox_reject_22",
+    "description": "Reject wrong link",
+    "prompt": "Reject outbox 8 \u2014 broken link.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_reject",
+      "outbox_id": 8,
+      "reason": "Wrong repo link"
+    }
+  },
+  {
+    "name": "accounts_list_23",
+    "description": "Check configured account",
+    "prompt": "Am I configured for Civitai?",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "accounts_list"
+    }
+  },
+  {
+    "name": "webhook_list_24",
+    "description": "List inbound webhook events",
+    "prompt": "Show recent inbound webhooks.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "webhook_list"
+    }
+  },
+  {
+    "name": "webhook_receive_25",
+    "description": "Simulate release webhook",
+    "prompt": "Record a simulated release webhook for civitai-mcp v0.1.1.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "webhook_receive",
+      "source": "fleet-ci",
+      "event_type": "release",
+      "payload": {
+        "repo": "civitai-mcp",
+        "tag": "v0.1.1"
+      }
+    }
+  },
+  {
+    "name": "push_subscription_get_26",
+    "description": "Get push subscription status",
+    "prompt": "Do I have web push configured?",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "push_subscription_get"
+    }
+  },
+  {
+    "name": "post_extra_0",
+    "description": "Enqueue-style post variant 0",
+    "prompt": "Draft a pointer post: gimp-mcp batch resize without opening GIMP.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "post",
+      "status_text": "gimp-mcp batch resize without opening GIMP.",
+      "visibility": "public",
+      "dry_run": true
+    }
+  },
+  {
+    "name": "post_extra_1",
+    "description": "Enqueue-style post variant 1",
+    "prompt": "Draft a pointer post: mixx-dj-mcp: stems via Demucs on Windows fleet.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "post",
+      "status_text": "mixx-dj-mcp: stems via Demucs on Windows fleet.",
+      "visibility": "public",
+      "dry_run": true
+    }
+  },
+  {
+    "name": "post_extra_2",
+    "description": "Enqueue-style post variant 2",
+    "prompt": "Draft a pointer post: arxiv-mcp ingests papers to local corpus \u2014 MCP not magic.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "post",
+      "status_text": "arxiv-mcp ingests papers to local corpus \u2014 MCP not magic.",
+      "visibility": "public",
+      "dry_run": true
+    }
+  },
+  {
+    "name": "post_extra_3",
+    "description": "Enqueue-style post variant 3",
+    "prompt": "Draft a pointer post: fileops-mcp: atomic writes for agent file workflows.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "post",
+      "status_text": "fileops-mcp: atomic writes for agent file workflows.",
+      "visibility": "public",
+      "dry_run": true
+    }
+  },
+  {
+    "name": "post_extra_4",
+    "description": "Enqueue-style post variant 4",
+    "prompt": "Draft a pointer post: calibre-mcp metadata search without Calibre GUI.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "post",
+      "status_text": "calibre-mcp metadata search without Calibre GUI.",
+      "visibility": "public",
+      "dry_run": true
+    }
+  },
+  {
+    "name": "outbox_enqueue_bulk_1",
+    "description": "Bulk enqueue example 1",
+    "prompt": "Queue fleet draft number 1 for repo test-mcp-1.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_enqueue",
+      "payload": {
+        "status_text": "test-mcp-1: concrete capability summary.",
+        "repo_id": "test-mcp-1",
+        "campaign": "bulk-examples",
+        "visibility": "public"
+      }
+    }
+  },
+  {
+    "name": "outbox_enqueue_bulk_2",
+    "description": "Bulk enqueue example 2",
+    "prompt": "Queue fleet draft number 2 for repo test-mcp-2.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_enqueue",
+      "payload": {
+        "status_text": "test-mcp-2: concrete capability summary.",
+        "repo_id": "test-mcp-2",
+        "campaign": "bulk-examples",
+        "visibility": "public"
+      }
+    }
+  },
+  {
+    "name": "outbox_enqueue_bulk_3",
+    "description": "Bulk enqueue example 3",
+    "prompt": "Queue fleet draft number 3 for repo test-mcp-3.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_enqueue",
+      "payload": {
+        "status_text": "test-mcp-3: concrete capability summary.",
+        "repo_id": "test-mcp-3",
+        "campaign": "bulk-examples",
+        "visibility": "public"
+      }
+    }
+  },
+  {
+    "name": "outbox_enqueue_bulk_4",
+    "description": "Bulk enqueue example 4",
+    "prompt": "Queue fleet draft number 4 for repo test-mcp-4.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_enqueue",
+      "payload": {
+        "status_text": "test-mcp-4: concrete capability summary.",
+        "repo_id": "test-mcp-4",
+        "campaign": "bulk-examples",
+        "visibility": "public"
+      }
+    }
+  },
+  {
+    "name": "outbox_enqueue_bulk_5",
+    "description": "Bulk enqueue example 5",
+    "prompt": "Queue fleet draft number 5 for repo test-mcp-5.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_enqueue",
+      "payload": {
+        "status_text": "test-mcp-5: concrete capability summary.",
+        "repo_id": "test-mcp-5",
+        "campaign": "bulk-examples",
+        "visibility": "public"
+      }
+    }
+  },
+  {
+    "name": "outbox_enqueue_bulk_6",
+    "description": "Bulk enqueue example 6",
+    "prompt": "Queue fleet draft number 6 for repo test-mcp-6.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_enqueue",
+      "payload": {
+        "status_text": "test-mcp-6: concrete capability summary.",
+        "repo_id": "test-mcp-6",
+        "campaign": "bulk-examples",
+        "visibility": "public"
+      }
+    }
+  },
+  {
+    "name": "outbox_enqueue_bulk_7",
+    "description": "Bulk enqueue example 7",
+    "prompt": "Queue fleet draft number 7 for repo test-mcp-7.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_enqueue",
+      "payload": {
+        "status_text": "test-mcp-7: concrete capability summary.",
+        "repo_id": "test-mcp-7",
+        "campaign": "bulk-examples",
+        "visibility": "public"
+      }
+    }
+  },
+  {
+    "name": "outbox_enqueue_bulk_8",
+    "description": "Bulk enqueue example 8",
+    "prompt": "Queue fleet draft number 8 for repo test-mcp-8.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_enqueue",
+      "payload": {
+        "status_text": "test-mcp-8: concrete capability summary.",
+        "repo_id": "test-mcp-8",
+        "campaign": "bulk-examples",
+        "visibility": "public"
+      }
+    }
+  },
+  {
+    "name": "outbox_enqueue_bulk_9",
+    "description": "Bulk enqueue example 9",
+    "prompt": "Queue fleet draft number 9 for repo test-mcp-9.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_enqueue",
+      "payload": {
+        "status_text": "test-mcp-9: concrete capability summary.",
+        "repo_id": "test-mcp-9",
+        "campaign": "bulk-examples",
+        "visibility": "public"
+      }
+    }
+  },
+  {
+    "name": "outbox_enqueue_bulk_10",
+    "description": "Bulk enqueue example 10",
+    "prompt": "Queue fleet draft number 10 for repo test-mcp-10.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_enqueue",
+      "payload": {
+        "status_text": "test-mcp-10: concrete capability summary.",
+        "repo_id": "test-mcp-10",
+        "campaign": "bulk-examples",
+        "visibility": "public"
+      }
+    }
+  },
+  {
+    "name": "outbox_enqueue_bulk_11",
+    "description": "Bulk enqueue example 11",
+    "prompt": "Queue fleet draft number 11 for repo test-mcp-11.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_enqueue",
+      "payload": {
+        "status_text": "test-mcp-11: concrete capability summary.",
+        "repo_id": "test-mcp-11",
+        "campaign": "bulk-examples",
+        "visibility": "public"
+      }
+    }
+  },
+  {
+    "name": "outbox_enqueue_bulk_12",
+    "description": "Bulk enqueue example 12",
+    "prompt": "Queue fleet draft number 12 for repo test-mcp-12.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_enqueue",
+      "payload": {
+        "status_text": "test-mcp-12: concrete capability summary.",
+        "repo_id": "test-mcp-12",
+        "campaign": "bulk-examples",
+        "visibility": "public"
+      }
+    }
+  },
+  {
+    "name": "outbox_enqueue_bulk_13",
+    "description": "Bulk enqueue example 13",
+    "prompt": "Queue fleet draft number 13 for repo test-mcp-13.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_enqueue",
+      "payload": {
+        "status_text": "test-mcp-13: concrete capability summary.",
+        "repo_id": "test-mcp-13",
+        "campaign": "bulk-examples",
+        "visibility": "public"
+      }
+    }
+  },
+  {
+    "name": "outbox_enqueue_bulk_14",
+    "description": "Bulk enqueue example 14",
+    "prompt": "Queue fleet draft number 14 for repo test-mcp-14.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_enqueue",
+      "payload": {
+        "status_text": "test-mcp-14: concrete capability summary.",
+        "repo_id": "test-mcp-14",
+        "campaign": "bulk-examples",
+        "visibility": "public"
+      }
+    }
+  },
+  {
+    "name": "outbox_enqueue_bulk_15",
+    "description": "Bulk enqueue example 15",
+    "prompt": "Queue fleet draft number 15 for repo test-mcp-15.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_enqueue",
+      "payload": {
+        "status_text": "test-mcp-15: concrete capability summary.",
+        "repo_id": "test-mcp-15",
+        "campaign": "bulk-examples",
+        "visibility": "public"
+      }
+    }
+  },
+  {
+    "name": "outbox_enqueue_bulk_16",
+    "description": "Bulk enqueue example 16",
+    "prompt": "Queue fleet draft number 16 for repo test-mcp-16.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_enqueue",
+      "payload": {
+        "status_text": "test-mcp-16: concrete capability summary.",
+        "repo_id": "test-mcp-16",
+        "campaign": "bulk-examples",
+        "visibility": "public"
+      }
+    }
+  },
+  {
+    "name": "outbox_enqueue_bulk_17",
+    "description": "Bulk enqueue example 17",
+    "prompt": "Queue fleet draft number 17 for repo test-mcp-17.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_enqueue",
+      "payload": {
+        "status_text": "test-mcp-17: concrete capability summary.",
+        "repo_id": "test-mcp-17",
+        "campaign": "bulk-examples",
+        "visibility": "public"
+      }
+    }
+  },
+  {
+    "name": "outbox_enqueue_bulk_18",
+    "description": "Bulk enqueue example 18",
+    "prompt": "Queue fleet draft number 18 for repo test-mcp-18.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_enqueue",
+      "payload": {
+        "status_text": "test-mcp-18: concrete capability summary.",
+        "repo_id": "test-mcp-18",
+        "campaign": "bulk-examples",
+        "visibility": "public"
+      }
+    }
+  },
+  {
+    "name": "outbox_enqueue_bulk_19",
+    "description": "Bulk enqueue example 19",
+    "prompt": "Queue fleet draft number 19 for repo test-mcp-19.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_enqueue",
+      "payload": {
+        "status_text": "test-mcp-19: concrete capability summary.",
+        "repo_id": "test-mcp-19",
+        "campaign": "bulk-examples",
+        "visibility": "public"
+      }
+    }
+  },
+  {
+    "name": "outbox_enqueue_bulk_20",
+    "description": "Bulk enqueue example 20",
+    "prompt": "Queue fleet draft number 20 for repo test-mcp-20.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_enqueue",
+      "payload": {
+        "status_text": "test-mcp-20: concrete capability summary.",
+        "repo_id": "test-mcp-20",
+        "campaign": "bulk-examples",
+        "visibility": "public"
+      }
+    }
+  },
+  {
+    "name": "outbox_approve_bulk_1",
+    "description": "Approve outbox 1",
+    "prompt": "I reviewed it \u2014 approve outbox 1.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_approve",
+      "outbox_id": 1
+    }
+  },
+  {
+    "name": "outbox_approve_bulk_2",
+    "description": "Approve outbox 2",
+    "prompt": "I reviewed it \u2014 approve outbox 2.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_approve",
+      "outbox_id": 2
+    }
+  },
+  {
+    "name": "outbox_approve_bulk_3",
+    "description": "Approve outbox 3",
+    "prompt": "I reviewed it \u2014 approve outbox 3.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_approve",
+      "outbox_id": 3
+    }
+  },
+  {
+    "name": "outbox_approve_bulk_4",
+    "description": "Approve outbox 4",
+    "prompt": "I reviewed it \u2014 approve outbox 4.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_approve",
+      "outbox_id": 4
+    }
+  },
+  {
+    "name": "outbox_approve_bulk_5",
+    "description": "Approve outbox 5",
+    "prompt": "I reviewed it \u2014 approve outbox 5.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_approve",
+      "outbox_id": 5
+    }
+  },
+  {
+    "name": "outbox_approve_bulk_6",
+    "description": "Approve outbox 6",
+    "prompt": "I reviewed it \u2014 approve outbox 6.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_approve",
+      "outbox_id": 6
+    }
+  },
+  {
+    "name": "outbox_approve_bulk_7",
+    "description": "Approve outbox 7",
+    "prompt": "I reviewed it \u2014 approve outbox 7.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_approve",
+      "outbox_id": 7
+    }
+  },
+  {
+    "name": "outbox_approve_bulk_8",
+    "description": "Approve outbox 8",
+    "prompt": "I reviewed it \u2014 approve outbox 8.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_approve",
+      "outbox_id": 8
+    }
+  },
+  {
+    "name": "outbox_approve_bulk_9",
+    "description": "Approve outbox 9",
+    "prompt": "I reviewed it \u2014 approve outbox 9.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_approve",
+      "outbox_id": 9
+    }
+  },
+  {
+    "name": "outbox_approve_bulk_10",
+    "description": "Approve outbox 10",
+    "prompt": "I reviewed it \u2014 approve outbox 10.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_approve",
+      "outbox_id": 10
+    }
+  },
+  {
+    "name": "outbox_publish_bulk_1",
+    "description": "Publish outbox 1",
+    "prompt": "Publish approved outbox item 1.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_publish",
+      "outbox_id": 1,
+      "dry_run": true
+    }
+  },
+  {
+    "name": "outbox_publish_bulk_2",
+    "description": "Publish outbox 2",
+    "prompt": "Publish approved outbox item 2.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_publish",
+      "outbox_id": 2,
+      "dry_run": true
+    }
+  },
+  {
+    "name": "outbox_publish_bulk_3",
+    "description": "Publish outbox 3",
+    "prompt": "Publish approved outbox item 3.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_publish",
+      "outbox_id": 3,
+      "dry_run": true
+    }
+  },
+  {
+    "name": "outbox_publish_bulk_4",
+    "description": "Publish outbox 4",
+    "prompt": "Publish approved outbox item 4.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_publish",
+      "outbox_id": 4,
+      "dry_run": true
+    }
+  },
+  {
+    "name": "outbox_publish_bulk_5",
+    "description": "Publish outbox 5",
+    "prompt": "Publish approved outbox item 5.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_publish",
+      "outbox_id": 5,
+      "dry_run": true
+    }
+  },
+  {
+    "name": "outbox_publish_bulk_6",
+    "description": "Publish outbox 6",
+    "prompt": "Publish approved outbox item 6.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_publish",
+      "outbox_id": 6,
+      "dry_run": true
+    }
+  },
+  {
+    "name": "outbox_publish_bulk_7",
+    "description": "Publish outbox 7",
+    "prompt": "Publish approved outbox item 7.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_publish",
+      "outbox_id": 7,
+      "dry_run": true
+    }
+  },
+  {
+    "name": "outbox_publish_bulk_8",
+    "description": "Publish outbox 8",
+    "prompt": "Publish approved outbox item 8.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_publish",
+      "outbox_id": 8,
+      "dry_run": true
+    }
+  },
+  {
+    "name": "outbox_publish_bulk_9",
+    "description": "Publish outbox 9",
+    "prompt": "Publish approved outbox item 9.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_publish",
+      "outbox_id": 9,
+      "dry_run": true
+    }
+  },
+  {
+    "name": "outbox_publish_bulk_10",
+    "description": "Publish outbox 10",
+    "prompt": "Publish approved outbox item 10.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "outbox_publish",
+      "outbox_id": 10,
+      "dry_run": true
+    }
+  },
+  {
+    "name": "reply_bulk_1",
+    "description": "Reply example 1",
+    "prompt": "Reply to thread 110000000000000001.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "reply",
+      "in_reply_to_id": "110000000000000001",
+      "status_text": "Follow-up note 1."
+    }
+  },
+  {
+    "name": "reply_bulk_2",
+    "description": "Reply example 2",
+    "prompt": "Reply to thread 110000000000000002.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "reply",
+      "in_reply_to_id": "110000000000000002",
+      "status_text": "Follow-up note 2."
+    }
+  },
+  {
+    "name": "reply_bulk_3",
+    "description": "Reply example 3",
+    "prompt": "Reply to thread 110000000000000003.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "reply",
+      "in_reply_to_id": "110000000000000003",
+      "status_text": "Follow-up note 3."
+    }
+  },
+  {
+    "name": "reply_bulk_4",
+    "description": "Reply example 4",
+    "prompt": "Reply to thread 110000000000000004.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "reply",
+      "in_reply_to_id": "110000000000000004",
+      "status_text": "Follow-up note 4."
+    }
+  },
+  {
+    "name": "reply_bulk_5",
+    "description": "Reply example 5",
+    "prompt": "Reply to thread 110000000000000005.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "reply",
+      "in_reply_to_id": "110000000000000005",
+      "status_text": "Follow-up note 5."
+    }
+  },
+  {
+    "name": "boost_bulk_1",
+    "description": "Boost example 1",
+    "prompt": "Boost post 220000000000000001.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "boost",
+      "status_id": "220000000000000001"
+    }
+  },
+  {
+    "name": "boost_bulk_2",
+    "description": "Boost example 2",
+    "prompt": "Boost post 220000000000000002.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "boost",
+      "status_id": "220000000000000002"
+    }
+  },
+  {
+    "name": "boost_bulk_3",
+    "description": "Boost example 3",
+    "prompt": "Boost post 220000000000000003.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "boost",
+      "status_id": "220000000000000003"
+    }
+  },
+  {
+    "name": "boost_bulk_4",
+    "description": "Boost example 4",
+    "prompt": "Boost post 220000000000000004.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "boost",
+      "status_id": "220000000000000004"
+    }
+  },
+  {
+    "name": "boost_bulk_5",
+    "description": "Boost example 5",
+    "prompt": "Boost post 220000000000000005.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "boost",
+      "status_id": "220000000000000005"
+    }
+  },
+  {
+    "name": "help_ports",
+    "description": "List civitai-mcp ports and outbox flow.",
+    "prompt": "What ports?",
+    "tool": "civitai_help",
+    "arguments": {}
+  },
+  {
+    "name": "help_overview",
+    "description": "Give me civitai-mcp help summary.",
+    "prompt": "Server overview",
+    "tool": "civitai_help",
+    "arguments": {}
+  },
+  {
+    "name": "help_flow",
+    "description": "Explain enqueue approve publish.",
+    "prompt": "Outbox flow",
+    "tool": "civitai_help",
+    "arguments": {}
+  },
+  {
+    "name": "help_dryrun",
+    "description": "How does dry-run work here?",
+    "prompt": "Dry-run policy",
+    "tool": "civitai_help",
+    "arguments": {}
+  },
+  {
+    "name": "help_tools",
+    "description": "Which MCP tools exist?",
+    "prompt": "Tool list",
+    "tool": "civitai_help",
+    "arguments": {}
+  },
+  {
+    "name": "show_outbox_1",
+    "description": "Show outbox card snapshot 1",
+    "prompt": "Show me a visual summary of pending outbox drafts.",
+    "tool": "show_outbox_card",
+    "arguments": {}
+  },
+  {
+    "name": "show_outbox_2",
+    "description": "Show outbox card snapshot 2",
+    "prompt": "Show me a visual summary of pending outbox drafts.",
+    "tool": "show_outbox_card",
+    "arguments": {}
+  },
+  {
+    "name": "show_outbox_3",
+    "description": "Show outbox card snapshot 3",
+    "prompt": "Show me a visual summary of pending outbox drafts.",
+    "tool": "show_outbox_card",
+    "arguments": {}
+  },
+  {
+    "name": "show_outbox_4",
+    "description": "Show outbox card snapshot 4",
+    "prompt": "Show me a visual summary of pending outbox drafts.",
+    "tool": "show_outbox_card",
+    "arguments": {}
+  },
+  {
+    "name": "show_outbox_5",
+    "description": "Show outbox card snapshot 5",
+    "prompt": "Show me a visual summary of pending outbox drafts.",
+    "tool": "show_outbox_card",
+    "arguments": {}
+  },
+  {
+    "name": "shutdown_1",
+    "description": "Graceful shutdown ack",
+    "prompt": "Acknowledge civitai-mcp shutdown.",
+    "tool": "civitai_shutdown",
+    "arguments": {}
+  },
+  {
+    "name": "webhook_receive_0",
+    "description": "Webhook pr_queued",
+    "prompt": "Ingest pr_queued webhook event.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "webhook_receive",
+      "source": "fleet-bridge",
+      "event_type": "pr_queued",
+      "payload": {
+        "repo": "kicad-mcp",
+        "draft_id": "abc"
+      }
+    }
+  },
+  {
+    "name": "webhook_receive_1",
+    "description": "Webhook star_received",
+    "prompt": "Ingest star_received webhook event.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "webhook_receive",
+      "source": "fleet-bridge",
+      "event_type": "social",
+      "payload": {
+        "count": 10
+      }
+    }
+  },
+  {
+    "name": "webhook_receive_2",
+    "description": "Webhook issue_opened",
+    "prompt": "Ingest issue_opened webhook event.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "webhook_receive",
+      "source": "fleet-bridge",
+      "event_type": "github",
+      "payload": {
+        "repo": "civitai-mcp",
+        "number": 42
+      }
+    }
+  },
+  {
+    "name": "timeline_refresh_1",
+    "description": "Refresh timeline variant 1",
+    "prompt": "Refresh my local timeline.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "timeline",
+      "timeline": "local"
+    }
+  },
+  {
+    "name": "timeline_refresh_2",
+    "description": "Refresh timeline variant 2",
+    "prompt": "Refresh my public timeline.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "timeline",
+      "timeline": "public"
+    }
+  },
+  {
+    "name": "timeline_refresh_3",
+    "description": "Refresh timeline variant 3",
+    "prompt": "Refresh my home timeline.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "timeline",
+      "timeline": "home"
+    }
+  },
+  {
+    "name": "timeline_refresh_4",
+    "description": "Refresh timeline variant 4",
+    "prompt": "Refresh my local timeline.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "timeline",
+      "timeline": "local"
+    }
+  },
+  {
+    "name": "timeline_refresh_5",
+    "description": "Refresh timeline variant 5",
+    "prompt": "Refresh my public timeline.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "timeline",
+      "timeline": "public"
+    }
+  },
+  {
+    "name": "timeline_refresh_6",
+    "description": "Refresh timeline variant 6",
+    "prompt": "Refresh my home timeline.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "timeline",
+      "timeline": "home"
+    }
+  },
+  {
+    "name": "timeline_refresh_7",
+    "description": "Refresh timeline variant 7",
+    "prompt": "Refresh my local timeline.",
+    "tool": "civitai_models_tool",
+    "arguments": {
+      "operation": "timeline",
+      "timeline": "local"
+    }
+  }
+]

@@ -1,0 +1,79 @@
+# civitai-mcp — full LLM context
+
+## Purpose
+
+Private FastMCP 3.4+ Civitai (Civitai marketplace) bridge. Primary job: hold a **human-approved outbox** for promotion drafts from `fleet-public-relations-mcp`, then publish (dry-run by default).
+
+Not Civitai. Not auto-post from CI or scraper-mcp.
+
+## Ports
+
+| Service | Port |
+|---------|------|
+| Backend REST + MCP `/mcp` | 11124 |
+| Vite dark webapp | 11125 |
+
+## Tools
+
+### civitai_models_tool (portmanteau)
+
+Operations: `post`, `reply`, `boost`, `upload_media`, `timeline`, `notifications`, `outbox_list`, `outbox_enqueue`, `outbox_approve`, `outbox_publish`, `outbox_reject`, `accounts_list`.
+
+Fleet path: `outbox_enqueue` → human `outbox_approve` → `outbox_publish` (respects `CIVITAI_DRY_RUN`).
+
+Direct `post` blocked when `CIVITAI_REQUIRE_OUTBOX_APPROVAL=1` unless `outbox_id` set.
+
+### civitai_help / civitai_shutdown
+
+Help dict and shutdown ack.
+
+## REST
+
+- `GET /api/health`, `/api/v1/health`
+- `POST /api/v1/outbox` — fleet-PR `CIVITAI_payload.json`
+- `GET /api/v1/outbox?status=`
+- `POST /api/v1/outbox/{id}/approve|reject|publish`
+- `GET /api/v1/timeline?kind=home|local|public`
+- `GET /api/v1/notifications` — inbox (dry empty without tokens)
+
+## Payload (fleet-PR)
+
+```json
+{
+  "schema_version": 1,
+  "source": "fleet-public-relations-mcp",
+  "repo_id": "mixx-dj-mcp",
+  "campaign": "...",
+  "status_text": "...",
+  "visibility": "public",
+  "idempotency_key": "..."
+}
+```
+
+## Env
+
+| Var | Default | Notes |
+|-----|---------|-------|
+| CIVITAI_INSTANCE | — | e.g. https://civitai.com |
+| CIVITAI_ACCESS_TOKEN | — | write:statuses |
+| CIVITAI_DRY_RUN | 1 | Keep on until intentional live post |
+| CIVITAI_REQUIRE_OUTBOX_APPROVAL | 1 | |
+| CIVITAI_BACKEND_PORT | 11124 | |
+| CIVITAI_DATA_DIR | data/ | SQLite outbox |
+
+## Tone
+
+Follow `mcp-central-docs/standards/FLEET_PROMOTION.md`. Ban hype and “written by AI” authorship theater. Architecture/tools/mild competition OK.
+
+## Tests
+
+```powershell
+uv run pytest tests/ -q
+cd webapp; npm run test:e2e
+```
+
+## Packaging
+
+- `just mcpb-pack` → `dist/civitai-mcp-v0.1.0.mcpb`
+- Tauri/NSIS scaffold under `src-tauri/` (icons + PyInstaller spec before `just build-native`)
+- No private-repo GitHub Actions

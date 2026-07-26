@@ -1,0 +1,35 @@
+{
+  "manifest_version": "0.2",
+  "name": "civitai-mcp",
+  "version": "0.1.0",
+  "description": "FastMCP 3.4+ Civitai (Civitai marketplace) bridge with human-approved outbox for fleet-PR drafts",
+  "author": {
+    "name": "Sandra Schieder"
+  },
+  "server": {
+    "type": "python",
+    "entry_point": "src/civitai_mcp/__main__.py",
+    "mcp_config": {
+      "command": "uv",
+      "args": ["run", "--directory", "${PWD}", "python", "-m", "civitai_mcp"],
+      "env": {
+        "PYTHONPATH": "${PWD}/src",
+        "PYTHONUNBUFFERED": "1"
+      }
+    }
+  },
+  "tools": [
+    {
+      "name": "civitai_models_tool",
+      "description": "Portmanteau: post, timeline, outbox_enqueue/approve/publish — dry-run default"
+    },
+    {
+      "name": "civitai_help",
+      "description": "Help for civitai-mcp operations and outbox flow"
+    },
+    {
+      "name": "civitai_shutdown",
+      "description": "Graceful shutdown signal"
+    }
+  ]
+}

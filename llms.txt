@@ -1,0 +1,12 @@
+# civitai-mcp
+
+## LLM Context
+
+> FastMCP 3.4 Civitai marketplace bridge: Civitai outbox with human approve before post; fleet-PR draft handoff; dry-run default.
+
+- [llms-full.txt](llms-full.txt) — tools, outbox flow, env, ports, safety
+- [README.md](README.md) — overview
+- [INSTALL.md](INSTALL.md) — install paths
+- [PRD.md](PRD.md) — requirements + payload contract
+- [AGENTS.md](AGENTS.md) — agent guide
+- [CHANGELOG.md](CHANGELOG.md) — history

@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "name": "civitai-mcp",
+  "description": "FastMCP 3.4 Civitai/Civitai marketplace bridge with human-approved outbox for fleet-PR drafts. Dry-run default.",
+  "version": "0.1.0",
+  "categories": ["messaging", "comms", "fediverse", "promotion"],
+  "visibility": "private",
+  "tools": [
+    "civitai_models_tool",
+    "civitai_help",
+    "civitai_shutdown"
+  ],
+  "transport": {
+    "type": "streamable-http",
+    "url": "http://127.0.0.1:11124/mcp"
+  },
+  "rest": {
+    "base_url": "http://127.0.0.1:11124",
+    "health": "/api/health"
+  },
+  "webapp": {
+    "url": "http://127.0.0.1:11125"
+  }
+}

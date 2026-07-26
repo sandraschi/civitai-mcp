@@ -1,0 +1,39 @@
+# Logic/Dev Bloat
+.venv/
+node_modules/
+**/node_modules/
+__pycache__/
+.ruff_cache/
+.pytest_cache/
+tests/
+.coverage
+htmlcov/
+
+# Discovery & Fleet Metadata
+glama.json
+llms.txt
+llms-full.txt
+.git/
+.github/
+.vscode/
+.idea/
+
+# Build Artifacts
+dist/
+build/
+*.mcpb
+*.bak
+*.bak.*
+*.orig
+*.rej
+mcpb/src/
+
+# Non-MCP components (webapp, native, scripts, data)
+src-tauri/
+webapp/
+scripts/
+data/
+*.db
+*.sqlite3
+target/
+**/target/
