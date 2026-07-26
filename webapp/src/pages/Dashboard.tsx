@@ -87,7 +87,7 @@ function Inner({ backendOk }: { backendOk: boolean | null }) {
         approved: dash?.approved ?? 0,
         published: dash?.published ?? 0,
         rejected: dash?.rejected ?? 0,
-        total: dash?.total ?? 0,
+        total: dash?.local_models ?? dash?.total ?? 0,
       }
     : MOCK_KPIS;
 
@@ -140,13 +140,22 @@ function Inner({ backendOk }: { backendOk: boolean | null }) {
               </span>
             </div>
           </div>
-          <Link
-            to="/outbox"
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium transition-colors shrink-0"
-            data-testid="hero-cta-outbox"
-          >
-            Download queue <ArrowRight size={16} />
-          </Link>
+          <div className="flex flex-col gap-2 shrink-0">
+            <Link
+              to="/search"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium transition-colors"
+              data-testid="hero-cta-search"
+            >
+              Search models <ArrowRight size={16} />
+            </Link>
+            <Link
+              to="/depot"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg border border-zinc-700 hover:border-zinc-500 text-zinc-200 text-sm font-medium transition-colors"
+              data-testid="hero-cta-depot"
+            >
+              Open Depot
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -174,7 +183,7 @@ function Inner({ backendOk }: { backendOk: boolean | null }) {
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 mb-8">
         <StatCard
           data-testid="kpi-pending"
-          label="Pending"
+          label="Queue"
           value={String(kpis.pending)}
           icon={Inbox}
           color="text-amber-400"
@@ -190,7 +199,7 @@ function Inner({ backendOk }: { backendOk: boolean | null }) {
         />
         <StatCard
           data-testid="kpi-published"
-          label="Published"
+          label="Downloaded"
           value={String(kpis.published)}
           icon={Send}
           color="text-violet-400"
@@ -206,7 +215,7 @@ function Inner({ backendOk }: { backendOk: boolean | null }) {
         />
         <StatCard
           data-testid="kpi-total"
-          label="Total"
+          label="In depot"
           value={String(kpis.total)}
           icon={Archive}
           color="text-zinc-400"
@@ -224,7 +233,7 @@ function Inner({ backendOk }: { backendOk: boolean | null }) {
       {recent.length > 0 ? (
         <div>
           <h2 className="text-sm font-medium text-zinc-400 mb-3 flex items-center gap-2">
-            Recent outbox
+            Recent download queue
             {!onboarded && <MockBadge />}
           </h2>
           <div className="space-y-2">
@@ -270,7 +279,7 @@ function Inner({ backendOk }: { backendOk: boolean | null }) {
         <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-8 text-center">
           <Inbox size={32} className="mx-auto mb-3 text-zinc-700" />
           <p className="text-sm text-zinc-500">
-            Outbox empty — queue from fleet-PR Drafts or Compose.
+            Queue empty — discover models on Search, then approve downloads.
           </p>
         </div>
       )}

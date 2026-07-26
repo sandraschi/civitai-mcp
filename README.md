@@ -15,8 +15,8 @@ Agents search Civitai freely (public API). Large weight downloads go through **o
 - `civitai_models` portmanteau: search, get, version_get, creators, tags, download, pin_comfyops, list_local, outbox_*
 - Type → folder mapping (`loras/`, `checkpoints/`, `vae/`, …)
 - Prefab `show_depot_card`
-- Webapp: Dashboard, Browse (Timelines), Download queue (Outbox), Tools, Skills, Chat, Settings, Help
-
+- Webapp: Dashboard, Search, Depot, Queue, Tools, Skills, Chat, Settings, Help
+  (no social Inbox/Compose — Civitai is a marketplace, not a messenger)
 ## Quick start
 
 ```powershell

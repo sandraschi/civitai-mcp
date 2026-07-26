@@ -4,44 +4,44 @@ import {
   BookOpen,
   ChevronLeft,
   ChevronRight,
+  Download,
+  HardDrive,
   HelpCircle,
-  Inbox,
   LayoutDashboard,
   MessageSquare,
-  PenSquare,
-  Radio,
-  Send,
+  Search,
   Settings,
   Terminal,
-  Users,
   Wrench,
 } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
-import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  NavLink,
+  Route,
+  Routes,
+} from "react-router-dom";
 import HelpModal from "./components/HelpModal";
 import LoggerModal from "./components/LoggerModal";
-import Accounts from "./pages/Accounts";
 import Chat from "./pages/Chat";
-import Compose from "./pages/Compose";
 import Dashboard from "./pages/Dashboard";
+import DepotPage from "./pages/Depot";
 import HelpPage from "./pages/Help";
-import InboxPage from "./pages/Inbox";
-import OutboxPage from "./pages/Outbox";
+import QueuePage from "./pages/Queue";
+import SearchPage from "./pages/Search";
 import SettingsPage from "./pages/Settings";
 import Skills from "./pages/Skills";
-import Timelines from "./pages/Timelines";
 import Tools from "./pages/Tools";
 
 const NAV = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
-  { to: "/inbox", label: "Inbox", icon: Inbox },
-  { to: "/outbox", label: "Outbox", icon: Send },
-  { to: "/compose", label: "Compose", icon: PenSquare },
-  { to: "/timelines", label: "Timelines", icon: Radio },
+  { to: "/search", label: "Search", icon: Search },
+  { to: "/depot", label: "Depot", icon: HardDrive },
+  { to: "/queue", label: "Queue", icon: Download },
   { to: "/tools", label: "Tools", icon: Wrench },
   { to: "/skills", label: "Skills", icon: BookOpen },
   { to: "/chat", label: "Chat", icon: MessageSquare },
-  { to: "/accounts", label: "Accounts", icon: Users },
   { to: "/settings", label: "Settings", icon: Settings },
   { to: "/help", label: "Help", icon: HelpCircle },
 ];
@@ -179,7 +179,7 @@ export default function App() {
             </div>
             {!collapsed && (
               <p className="text-[10px] text-zinc-600 mt-1.5">
-                dry-run default · human approve
+                catalog · depot · comfyops
               </p>
             )}
           </div>
@@ -209,14 +209,32 @@ export default function App() {
             <AnimatePresence mode="wait">
               <Routes>
                 <Route path="/" element={<Dashboard backendOk={backendOk} />} />
-                <Route path="/inbox" element={<InboxPage />} />
-                <Route path="/outbox" element={<OutboxPage />} />
-                <Route path="/compose" element={<Compose />} />
-                <Route path="/timelines" element={<Timelines />} />
+                <Route path="/search" element={<SearchPage />} />
+                <Route path="/depot" element={<DepotPage />} />
+                <Route path="/queue" element={<QueuePage />} />
+                <Route
+                  path="/outbox"
+                  element={<Navigate to="/queue" replace />}
+                />
+                <Route
+                  path="/timelines"
+                  element={<Navigate to="/search" replace />}
+                />
+                <Route
+                  path="/inbox"
+                  element={<Navigate to="/depot" replace />}
+                />
+                <Route
+                  path="/compose"
+                  element={<Navigate to="/search" replace />}
+                />
+                <Route
+                  path="/accounts"
+                  element={<Navigate to="/settings" replace />}
+                />
                 <Route path="/tools" element={<Tools />} />
                 <Route path="/skills" element={<Skills />} />
                 <Route path="/chat" element={<Chat />} />
-                <Route path="/accounts" element={<Accounts />} />
                 <Route path="/settings" element={<SettingsPage />} />
                 <Route path="/help" element={<HelpPage />} />
               </Routes>
