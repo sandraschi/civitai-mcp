@@ -1,10 +1,13 @@
 import {
   QueryClient,
   QueryClientProvider,
+  useMutation,
   useQuery,
+  useQueryClient,
 } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { CheckCircle, Cpu, Loader2, XCircle } from "lucide-react";
+import { CheckCircle, Cpu, Loader2, Save, XCircle } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { LLM_PROVIDERS, probeProviders } from "../lib/provider";
 import { useLLMStore } from "../store/llm";
@@ -13,13 +16,58 @@ const qc = new QueryClient({
   defaultOptions: { queries: { retry: 1, staleTime: 30_000 } },
 });
 
+type AppSettings = {
+  api_token_set: boolean;
+  dry_run: boolean;
+  require_download_approval: boolean;
+  depot_dir: string;
+  nsfw: boolean;
+  comfyops_backend_url: string;
+  comfyops_frontend_url: string;
+};
+
 function Inner() {
+  const queryClient = useQueryClient();
   const setOllamaUrl = useLLMStore((s) => s.setOllamaUrl);
+  const [token, setToken] = useState("");
+  const [form, setForm] = useState<AppSettings | null>(null);
 
   const { data: health } = useQuery({
     queryKey: ["health"],
     queryFn: () => fetch("/api/health").then((r) => r.json()),
     refetchInterval: 30_000,
+  });
+
+  const { data: settingsData } = useQuery({
+    queryKey: ["app-settings"],
+    queryFn: () =>
+      fetch("/api/settings")
+        .then((r) => r.json())
+        .then((j) => j.settings as AppSettings),
+  });
+
+  useEffect(() => {
+    if (settingsData) setForm(settingsData);
+  }, [settingsData]);
+
+  const saveMutation = useMutation({
+    mutationFn: async () => {
+      if (!form) return;
+      const r = await fetch("/api/settings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...form,
+          api_token: token.trim() || undefined,
+        }),
+      });
+      if (!r.ok) throw new Error("Save failed");
+      return r.json();
+    },
+    onSuccess: () => {
+      setToken("");
+      queryClient.invalidateQueries();
+    },
   });
 
   const { data: providers, isLoading: probing } = useQuery({
@@ -51,18 +99,7 @@ function Inner() {
   };
 
   const envRows: [string, string][] = [
-    [
-      "CIVITAI_DRY_RUN",
-      health?.dry_run != null ? String(health.dry_run) : "1 (default)",
-    ],
-    [
-      "CIVITAI_HANDLE / APP_PASSWORD",
-      health?.instance_configured ? "(configured)" : "(not set)",
-    ],
-    [
-      "CIVITAI_PDS",
-      health?.instance_configured ? "(ready)" : "https://civitai.com (default)",
-    ],
+    ["Depot", form?.depot_dir || health?.depot || "—"],
     ["Backend port", String(health?.ports?.backend ?? 11124)],
     ["Frontend port", String(health?.ports?.frontend ?? 11125)],
   ];
@@ -73,39 +110,52 @@ function Inner() {
       animate={{ opacity: 1, y: 0 }}
       className="p-6 max-w-2xl"
     >
-      <div className="mb-6">
-        <h1 className="text-xl font-semibold">Settings</h1>
-        <p className="text-sm text-zinc-500 mt-0.5">
-          Server status, LLM providers, and environment
-        </p>
-      </div>
-
-      {health && !health.instance_configured && (
-        <div
-          className="mb-6 rounded-xl border border-amber-500/40 bg-amber-500/10 p-4"
-          data-testid="onboarding-cue"
-        >
-          <p className="text-sm font-medium text-amber-200 mb-1">
-            Setup required — Civitai handle + app password
-          </p>
-          <p className="text-sm text-amber-100/80 mb-2">
-            Live posts need CIVITAI_HANDLE and CIVITAI_APP_PASSWORD. Free on
-            civitai.com (no credit card). Dry-run still works without them.
-          </p>
-          <p className="text-sm text-zinc-400">
-            Follow{" "}
-            <span className="text-violet-300 font-mono text-xs">
-              docs/ONBOARDING.md
-            </span>{" "}
-            (what this is for, money/CC, pitfalls) — then set{" "}
-            <span className="font-mono text-xs">CIVITAI_INSTANCE</span> and{" "}
-            <span className="font-mono text-xs">CIVITAI_ACCESS_TOKEN</span> in{" "}
-            <span className="font-mono text-xs">.env</span> and restart.{" "}
-            <Link to="/help" className="text-violet-400 hover:underline">
-              Help page
-            </Link>
+      <div className="mb-6 flex items-start justify-between gap-4">
+        <div>
+          <h1 className="text-xl font-semibold">Settings</h1>
+          <p className="text-sm text-zinc-500 mt-0.5">
+            Civitai token, depot, and ComfyOps cross-connect
           </p>
         </div>
+        <button
+          type="button"
+          onClick={() => saveMutation.mutate()}
+          disabled={!form || saveMutation.isPending}
+          className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-violet-600 hover:bg-violet-500 disabled:opacity-50"
+        >
+          {saveMutation.isPending ? (
+            <Loader2 size={14} className="animate-spin" />
+          ) : (
+            <Save size={14} />
+          )}
+          Save
+        </button>
+      </div>
+
+      {form && !form.api_token_set && (
+        <div className="mb-6 rounded-xl border border-amber-500/40 bg-amber-500/10 p-4">
+          <p className="text-sm font-medium text-amber-200 mb-1">
+            CIVITAI_API_TOKEN missing
+          </p>
+          <p className="text-sm text-amber-100/80">
+            Search works anonymously; live downloads need a token from{" "}
+            <a
+              href="https://civitai.com/user/account"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-violet-300 underline"
+            >
+              civitai.com/user/account
+            </a>
+            .
+          </p>
+        </div>
+      )}
+
+      {saveMutation.isSuccess && (
+        <p className="mb-4 text-sm text-green-400">
+          Settings saved and reloaded.
+        </p>
       )}
 
       <div className="space-y-3 mb-8">
@@ -135,6 +185,109 @@ function Inner() {
           </span>
         </div>
       </div>
+
+      {form && (
+        <div className="mb-8 space-y-4 bg-zinc-900 border border-zinc-800 rounded-lg p-4">
+          <h2 className="text-sm font-medium text-violet-300">
+            Civitai & ComfyOps
+          </h2>
+          <div className="space-y-1.5">
+            <label className="text-xs text-zinc-500">CIVITAI_API_TOKEN</label>
+            <input
+              type="password"
+              value={token}
+              onChange={(e) => setToken(e.target.value)}
+              placeholder={
+                form.api_token_set
+                  ? "Leave blank to keep current"
+                  : "Paste token"
+              }
+              className="w-full bg-zinc-950 border border-zinc-700 rounded-lg px-3 py-2 text-sm"
+            />
+          </div>
+          <div className="space-y-1.5">
+            <label className="text-xs text-zinc-500">
+              Shared depot (CIVITAI_DEPOT_DIR)
+            </label>
+            <input
+              type="text"
+              value={form.depot_dir}
+              onChange={(e) => setForm({ ...form, depot_dir: e.target.value })}
+              className="w-full bg-zinc-950 border border-zinc-700 rounded-lg px-3 py-2 text-sm font-mono"
+            />
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="space-y-1.5">
+              <label className="text-xs text-zinc-500">
+                COMFYOPS_BACKEND_URL
+              </label>
+              <input
+                type="text"
+                value={form.comfyops_backend_url}
+                onChange={(e) =>
+                  setForm({ ...form, comfyops_backend_url: e.target.value })
+                }
+                className="w-full bg-zinc-950 border border-zinc-700 rounded-lg px-3 py-2 text-sm font-mono"
+              />
+            </div>
+            <div className="space-y-1.5">
+              <label className="text-xs text-zinc-500">
+                COMFYOPS_FRONTEND_URL
+              </label>
+              <input
+                type="text"
+                value={form.comfyops_frontend_url}
+                onChange={(e) =>
+                  setForm({ ...form, comfyops_frontend_url: e.target.value })
+                }
+                className="w-full bg-zinc-950 border border-zinc-700 rounded-lg px-3 py-2 text-sm font-mono"
+              />
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-4 text-sm">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={form.dry_run}
+                onChange={(e) =>
+                  setForm({ ...form, dry_run: e.target.checked })
+                }
+              />
+              Dry-run downloads
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={form.require_download_approval}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    require_download_approval: e.target.checked,
+                  })
+                }
+              />
+              Require queue approval
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={form.nsfw}
+                onChange={(e) => setForm({ ...form, nsfw: e.target.checked })}
+              />
+              NSFW in search
+            </label>
+          </div>
+          <p className="text-xs text-zinc-600">
+            Depot should match{" "}
+            <span className="font-mono">COMFYOPS_MODELS_DIR</span> in
+            comfyops-mcp. See{" "}
+            <Link to="/comfyops" className="text-violet-400">
+              ComfyOps bridge
+            </Link>
+            .
+          </p>
+        </div>
+      )}
 
       <div className="mb-8">
         <h2
@@ -214,9 +367,7 @@ function Inner() {
       </div>
 
       <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-4">
-        <h2 className="text-sm font-medium text-zinc-300 mb-3">
-          Environment (from health)
-        </h2>
+        <h2 className="text-sm font-medium text-zinc-300 mb-3">Runtime</h2>
         <div className="space-y-2 text-sm font-mono">
           {envRows.map(([key, val]) => (
             <div key={key} className="flex gap-2">
@@ -225,10 +376,6 @@ function Inner() {
             </div>
           ))}
         </div>
-        <p className="text-xs text-zinc-600 mt-3">
-          Edit <code className="text-zinc-500">.env</code> in repo root. Never
-          commit secrets.
-        </p>
       </div>
     </motion.div>
   );

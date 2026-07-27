@@ -1,0 +1,22 @@
+# Normalize line endings to LF in the repo regardless of what the editing
+# tool wrote on disk (Windows-mounted D:\Dev\repos has repeatedly picked up
+# CRLF from Edit/Write tools, producing false 100%-file diffs, and at least
+# once contributed to a `git commit` hang while diffing a CRLF-corrupted
+# tree). git applies this on every `git add`/checkout — no per-file
+# discipline required.
+* text=auto eol=lf
+
+# Binary — never touch line endings
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.zip binary
+*.db binary
+*.sqlite binary
+*.sqlite3 binary
+
+# Windows-only scripts keep CRLF (bat/cmd expect it)
+*.bat text eol=crlf
+*.cmd text eol=crlf
