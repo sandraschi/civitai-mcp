@@ -11,6 +11,7 @@ install:
 
 bootstrap: install
     Set-Location "{{REPO}}"; & "{{UV}}" run pre-commit install
+    if (Test-Path "{{REPO}}\webapp\package.json") { Set-Location "{{REPO}}\webapp"; npm ci }
     Write-Host "Pre-commit hooks installed." -ForegroundColor Green
 
 serve:
