@@ -378,4 +378,3 @@ accounts_list showing `configured: false` means onboarding incomplete — direct
 civitai_shutdown does not kill the process — host supervisor handles lifecycle; use when user asks to cleanly end MCP session.
 
 show_outbox_card falls back to JSON summary if prefab-ui missing — still useful in minimal installs.
-

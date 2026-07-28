@@ -1,7 +1,7 @@
 # civitai-mcp PRD
 
-**Status:** Implemented (v0.1.1)  
-**Ports:** 11124 backend / 11125 webapp  
+**Status:** Implemented (v0.1.1)
+**Ports:** 11124 backend / 11125 webapp
 **Visibility:** Private (`.nopublish`)
 
 ## Goal

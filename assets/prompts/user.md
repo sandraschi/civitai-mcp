@@ -398,19 +398,19 @@ Happy careful tooting.
 
 ## FAQ
 
-**Q: Can the agent post without me?**  
+**Q: Can the agent post without me?**
 A: Not safely — outbox approval and your explicit publish command are required by design.
 
-**Q: Does scraper-mcp post for me?**  
+**Q: Does scraper-mcp post for me?**
 A: No. Never wire scrapers to publish.
 
-**Q: Civitai?**  
+**Q: Civitai?**
 A: Different MCP later. Do not use civitai-mcp for Civitai marketplacecol.
 
-**Q: Multiple accounts?**  
+**Q: Multiple accounts?**
 A: Single account via env today; `CIVITAI_ACCOUNTS_JSON` reserved for future multi-account.
 
-**Q: Where is FLEET_PROMOTION.md?**  
+**Q: Where is FLEET_PROMOTION.md?**
 A: Fleet standard at mcp-central-docs/standards/FLEET_PROMOTION.md — read before approving promotion drafts.
 
 ## PowerShell one-liners (reference)
@@ -449,19 +449,19 @@ Restart after env change: close terminal running start.ps1, run `start.bat` agai
 
 ## FAQ
 
-**Q: Can the agent post without me?**  
+**Q: Can the agent post without me?**
 A: Not safely — outbox approval and your explicit publish command are required by design.
 
-**Q: Does scraper-mcp post for me?**  
+**Q: Does scraper-mcp post for me?**
 A: No. Never wire scrapers to publish.
 
-**Q: Civitai?**  
+**Q: Civitai?**
 A: Different MCP later. Do not use civitai-mcp for Civitai marketplacecol.
 
-**Q: Multiple accounts?**  
+**Q: Multiple accounts?**
 A: Single account via env today; `CIVITAI_ACCOUNTS_JSON` reserved for future multi-account.
 
-**Q: Where is FLEET_PROMOTION.md?**  
+**Q: Where is FLEET_PROMOTION.md?**
 A: Fleet standard at mcp-central-docs/standards/FLEET_PROMOTION.md — read before approving promotion drafts.
 
 ## PowerShell one-liners (reference)
@@ -500,19 +500,19 @@ Restart after env change: close terminal running start.ps1, run `start.bat` agai
 
 ## FAQ
 
-**Q: Can the agent post without me?**  
+**Q: Can the agent post without me?**
 A: Not safely — outbox approval and your explicit publish command are required by design.
 
-**Q: Does scraper-mcp post for me?**  
+**Q: Does scraper-mcp post for me?**
 A: No. Never wire scrapers to publish.
 
-**Q: Civitai?**  
+**Q: Civitai?**
 A: Different MCP later. Do not use civitai-mcp for Civitai marketplacecol.
 
-**Q: Multiple accounts?**  
+**Q: Multiple accounts?**
 A: Single account via env today; `CIVITAI_ACCOUNTS_JSON` reserved for future multi-account.
 
-**Q: Where is FLEET_PROMOTION.md?**  
+**Q: Where is FLEET_PROMOTION.md?**
 A: Fleet standard at mcp-central-docs/standards/FLEET_PROMOTION.md — read before approving promotion drafts.
 
 ## PowerShell one-liners (reference)
@@ -551,19 +551,19 @@ Restart after env change: close terminal running start.ps1, run `start.bat` agai
 
 ## FAQ
 
-**Q: Can the agent post without me?**  
+**Q: Can the agent post without me?**
 A: Not safely — outbox approval and your explicit publish command are required by design.
 
-**Q: Does scraper-mcp post for me?**  
+**Q: Does scraper-mcp post for me?**
 A: No. Never wire scrapers to publish.
 
-**Q: Civitai?**  
+**Q: Civitai?**
 A: Different MCP later. Do not use civitai-mcp for Civitai marketplacecol.
 
-**Q: Multiple accounts?**  
+**Q: Multiple accounts?**
 A: Single account via env today; `CIVITAI_ACCOUNTS_JSON` reserved for future multi-account.
 
-**Q: Where is FLEET_PROMOTION.md?**  
+**Q: Where is FLEET_PROMOTION.md?**
 A: Fleet standard at mcp-central-docs/standards/FLEET_PROMOTION.md — read before approving promotion drafts.
 
 ## PowerShell one-liners (reference)
@@ -602,19 +602,19 @@ Restart after env change: close terminal running start.ps1, run `start.bat` agai
 
 ## FAQ
 
-**Q: Can the agent post without me?**  
+**Q: Can the agent post without me?**
 A: Not safely — outbox approval and your explicit publish command are required by design.
 
-**Q: Does scraper-mcp post for me?**  
+**Q: Does scraper-mcp post for me?**
 A: No. Never wire scrapers to publish.
 
-**Q: Civitai?**  
+**Q: Civitai?**
 A: Different MCP later. Do not use civitai-mcp for Civitai marketplacecol.
 
-**Q: Multiple accounts?**  
+**Q: Multiple accounts?**
 A: Single account via env today; `CIVITAI_ACCOUNTS_JSON` reserved for future multi-account.
 
-**Q: Where is FLEET_PROMOTION.md?**  
+**Q: Where is FLEET_PROMOTION.md?**
 A: Fleet standard at mcp-central-docs/standards/FLEET_PROMOTION.md — read before approving promotion drafts.
 
 ## PowerShell one-liners (reference)
@@ -653,19 +653,19 @@ Restart after env change: close terminal running start.ps1, run `start.bat` agai
 
 ## FAQ
 
-**Q: Can the agent post without me?**  
+**Q: Can the agent post without me?**
 A: Not safely — outbox approval and your explicit publish command are required by design.
 
-**Q: Does scraper-mcp post for me?**  
+**Q: Does scraper-mcp post for me?**
 A: No. Never wire scrapers to publish.
 
-**Q: Civitai?**  
+**Q: Civitai?**
 A: Different MCP later. Do not use civitai-mcp for Civitai marketplacecol.
 
-**Q: Multiple accounts?**  
+**Q: Multiple accounts?**
 A: Single account via env today; `CIVITAI_ACCOUNTS_JSON` reserved for future multi-account.
 
-**Q: Where is FLEET_PROMOTION.md?**  
+**Q: Where is FLEET_PROMOTION.md?**
 A: Fleet standard at mcp-central-docs/standards/FLEET_PROMOTION.md — read before approving promotion drafts.
 
 ## PowerShell one-liners (reference)
@@ -704,19 +704,19 @@ Restart after env change: close terminal running start.ps1, run `start.bat` agai
 
 ## FAQ
 
-**Q: Can the agent post without me?**  
+**Q: Can the agent post without me?**
 A: Not safely — outbox approval and your explicit publish command are required by design.
 
-**Q: Does scraper-mcp post for me?**  
+**Q: Does scraper-mcp post for me?**
 A: No. Never wire scrapers to publish.
 
-**Q: Civitai?**  
+**Q: Civitai?**
 A: Different MCP later. Do not use civitai-mcp for Civitai marketplacecol.
 
-**Q: Multiple accounts?**  
+**Q: Multiple accounts?**
 A: Single account via env today; `CIVITAI_ACCOUNTS_JSON` reserved for future multi-account.
 
-**Q: Where is FLEET_PROMOTION.md?**  
+**Q: Where is FLEET_PROMOTION.md?**
 A: Fleet standard at mcp-central-docs/standards/FLEET_PROMOTION.md — read before approving promotion drafts.
 
 ## PowerShell one-liners (reference)
@@ -755,19 +755,19 @@ Restart after env change: close terminal running start.ps1, run `start.bat` agai
 
 ## FAQ
 
-**Q: Can the agent post without me?**  
+**Q: Can the agent post without me?**
 A: Not safely — outbox approval and your explicit publish command are required by design.
 
-**Q: Does scraper-mcp post for me?**  
+**Q: Does scraper-mcp post for me?**
 A: No. Never wire scrapers to publish.
 
-**Q: Civitai?**  
+**Q: Civitai?**
 A: Different MCP later. Do not use civitai-mcp for Civitai marketplacecol.
 
-**Q: Multiple accounts?**  
+**Q: Multiple accounts?**
 A: Single account via env today; `CIVITAI_ACCOUNTS_JSON` reserved for future multi-account.
 
-**Q: Where is FLEET_PROMOTION.md?**  
+**Q: Where is FLEET_PROMOTION.md?**
 A: Fleet standard at mcp-central-docs/standards/FLEET_PROMOTION.md — read before approving promotion drafts.
 
 ## PowerShell one-liners (reference)
@@ -806,19 +806,19 @@ Restart after env change: close terminal running start.ps1, run `start.bat` agai
 
 ## FAQ
 
-**Q: Can the agent post without me?**  
+**Q: Can the agent post without me?**
 A: Not safely — outbox approval and your explicit publish command are required by design.
 
-**Q: Does scraper-mcp post for me?**  
+**Q: Does scraper-mcp post for me?**
 A: No. Never wire scrapers to publish.
 
-**Q: Civitai?**  
+**Q: Civitai?**
 A: Different MCP later. Do not use civitai-mcp for Civitai marketplacecol.
 
-**Q: Multiple accounts?**  
+**Q: Multiple accounts?**
 A: Single account via env today; `CIVITAI_ACCOUNTS_JSON` reserved for future multi-account.
 
-**Q: Where is FLEET_PROMOTION.md?**  
+**Q: Where is FLEET_PROMOTION.md?**
 A: Fleet standard at mcp-central-docs/standards/FLEET_PROMOTION.md — read before approving promotion drafts.
 
 ## PowerShell one-liners (reference)
@@ -857,19 +857,19 @@ Restart after env change: close terminal running start.ps1, run `start.bat` agai
 
 ## FAQ
 
-**Q: Can the agent post without me?**  
+**Q: Can the agent post without me?**
 A: Not safely — outbox approval and your explicit publish command are required by design.
 
-**Q: Does scraper-mcp post for me?**  
+**Q: Does scraper-mcp post for me?**
 A: No. Never wire scrapers to publish.
 
-**Q: Civitai?**  
+**Q: Civitai?**
 A: Different MCP later. Do not use civitai-mcp for Civitai marketplacecol.
 
-**Q: Multiple accounts?**  
+**Q: Multiple accounts?**
 A: Single account via env today; `CIVITAI_ACCOUNTS_JSON` reserved for future multi-account.
 
-**Q: Where is FLEET_PROMOTION.md?**  
+**Q: Where is FLEET_PROMOTION.md?**
 A: Fleet standard at mcp-central-docs/standards/FLEET_PROMOTION.md — read before approving promotion drafts.
 
 ## PowerShell one-liners (reference)
@@ -887,4 +887,3 @@ Invoke-RestMethod http://127.0.0.1:11124/api/v1/outbox
 ```
 
 Restart after env change: close terminal running start.ps1, run `start.bat` again.
-

@@ -754,19 +754,19 @@ Happy careful tooting.
 
 ## FAQ
 
-**Q: Can the agent post without me?**  
+**Q: Can the agent post without me?**
 A: Not safely — outbox approval and your explicit publish command are required by design.
 
-**Q: Does scraper-mcp post for me?**  
+**Q: Does scraper-mcp post for me?**
 A: No. Never wire scrapers to publish.
 
-**Q: Civitai?**  
+**Q: Civitai?**
 A: Different MCP later. Do not use civitai-mcp for Civitai marketplacecol.
 
-**Q: Multiple accounts?**  
+**Q: Multiple accounts?**
 A: Single account via env today; `CIVITAI_ACCOUNTS_JSON` reserved for future multi-account.
 
-**Q: Where is FLEET_PROMOTION.md?**  
+**Q: Where is FLEET_PROMOTION.md?**
 A: Fleet standard at mcp-central-docs/standards/FLEET_PROMOTION.md — read before approving promotion drafts.
 
 ## PowerShell one-liners (reference)
@@ -793,21 +793,70 @@ def generate_examples() -> list[dict]:
     examples: list[dict] = []
     ops_variants = {
         "post": [
-            ({"operation": "post", "status_text": "Testing civitai-mcp dry-run."}, "Dry-run test post"),
-            ({"operation": "post", "status_text": "kicad-mcp: headless Gerber export.", "visibility": "unlisted"}, "Unlisted repo pointer"),
-            ({"operation": "post", "status_text": "Follow-up thread part 1.", "visibility": "public", "dry_run": True}, "Explicit dry-run post"),
+            (
+                {"operation": "post", "status_text": "Testing civitai-mcp dry-run."},
+                "Dry-run test post",
+            ),
+            (
+                {
+                    "operation": "post",
+                    "status_text": "kicad-mcp: headless Gerber export.",
+                    "visibility": "unlisted",
+                },
+                "Unlisted repo pointer",
+            ),
+            (
+                {
+                    "operation": "post",
+                    "status_text": "Follow-up thread part 1.",
+                    "visibility": "public",
+                    "dry_run": True,
+                },
+                "Explicit dry-run post",
+            ),
         ],
         "reply": [
-            ({"operation": "reply", "in_reply_to_id": "110012345678901234", "status_text": "Thanks — link in repo README."}, "Reply to mention"),
-            ({"operation": "reply", "status_id": "110098765432109876", "status_text": "Good point about dry-run defaults."}, "Reply using status_id alias"),
+            (
+                {
+                    "operation": "reply",
+                    "in_reply_to_id": "110012345678901234",
+                    "status_text": "Thanks — link in repo README.",
+                },
+                "Reply to mention",
+            ),
+            (
+                {
+                    "operation": "reply",
+                    "status_id": "110098765432109876",
+                    "status_text": "Good point about dry-run defaults.",
+                },
+                "Reply using status_id alias",
+            ),
         ],
         "boost": [
             ({"operation": "boost", "status_id": "110011112222333344"}, "Boost a community post"),
-            ({"operation": "boost", "status_id": "110055566677788899", "dry_run": True}, "Dry-run boost"),
+            (
+                {"operation": "boost", "status_id": "110055566677788899", "dry_run": True},
+                "Dry-run boost",
+            ),
         ],
         "upload_media": [
-            ({"operation": "upload_media", "media_path": "D:\\Dev\\repos\\civitai-mcp\\assets\\icon.png", "media_description": "civitai-mcp icon"}, "Upload icon"),
-            ({"operation": "upload_media", "media_path": "C:\\Users\\Public\\Pictures\\screenshot.png", "media_description": "Webapp dashboard screenshot"}, "Upload screenshot"),
+            (
+                {
+                    "operation": "upload_media",
+                    "media_path": "D:\\Dev\\repos\\civitai-mcp\\assets\\icon.png",
+                    "media_description": "civitai-mcp icon",
+                },
+                "Upload icon",
+            ),
+            (
+                {
+                    "operation": "upload_media",
+                    "media_path": "C:\\Users\\Public\\Pictures\\screenshot.png",
+                    "media_description": "Webapp dashboard screenshot",
+                },
+                "Upload screenshot",
+            ),
         ],
         "timeline": [
             ({"operation": "timeline", "timeline": "home"}, "Home timeline"),
@@ -835,7 +884,11 @@ def generate_examples() -> list[dict]:
                 "Enqueue fleet-style draft",
             ),
             (
-                {"operation": "outbox_enqueue", "status_text": "Manual draft from agent.", "visibility": "unlisted"},
+                {
+                    "operation": "outbox_enqueue",
+                    "status_text": "Manual draft from agent.",
+                    "visibility": "unlisted",
+                },
                 "Enqueue via status_text shorthand",
             ),
         ],
@@ -845,11 +898,24 @@ def generate_examples() -> list[dict]:
         ],
         "outbox_publish": [
             ({"operation": "outbox_publish", "outbox_id": 1}, "Publish approved item 1"),
-            ({"operation": "outbox_publish", "outbox_id": 5, "dry_run": True}, "Dry-run publish item 5"),
+            (
+                {"operation": "outbox_publish", "outbox_id": 5, "dry_run": True},
+                "Dry-run publish item 5",
+            ),
         ],
         "outbox_reject": [
-            ({"operation": "outbox_reject", "outbox_id": 3, "reason": "Too hype — remove 'revolutionary'"}, "Reject hype draft"),
-            ({"operation": "outbox_reject", "outbox_id": 8, "reason": "Wrong repo link"}, "Reject wrong link"),
+            (
+                {
+                    "operation": "outbox_reject",
+                    "outbox_id": 3,
+                    "reason": "Too hype — remove 'revolutionary'",
+                },
+                "Reject hype draft",
+            ),
+            (
+                {"operation": "outbox_reject", "outbox_id": 8, "reason": "Wrong repo link"},
+                "Reject wrong link",
+            ),
         ],
         "accounts_list": [
             ({"operation": "accounts_list"}, "Check configured account"),
@@ -897,12 +963,18 @@ def generate_examples() -> list[dict]:
             "Show public federated timeline.",
         ],
         "notifications": ["Check my Civitai notifications."],
-        "outbox_list": ["List everything in the Civitai outbox.", "Show pending and approved drafts."],
+        "outbox_list": [
+            "List everything in the Civitai outbox.",
+            "Show pending and approved drafts.",
+        ],
         "outbox_enqueue": [
             "Queue a blender-mcp promotion draft for my review.",
             "Enqueue a short manual draft unlisted.",
         ],
-        "outbox_approve": ["Approve outbox item 1 after I reviewed it.", "Mark outbox 12 approved."],
+        "outbox_approve": [
+            "Approve outbox item 1 after I reviewed it.",
+            "Mark outbox 12 approved.",
+        ],
         "outbox_publish": ["Publish outbox 1 now.", "Dry-run publish outbox 5 to test flow."],
         "outbox_reject": [
             "Reject outbox 3 — too hype.",
@@ -944,7 +1016,12 @@ def generate_examples() -> list[dict]:
                 "description": f"Enqueue-style post variant {i}",
                 "prompt": f"Draft a pointer post: {text}",
                 "tool": "civitai_models_tool",
-                "arguments": {"operation": "post", "status_text": text, "visibility": "public", "dry_run": True},
+                "arguments": {
+                    "operation": "post",
+                    "status_text": text,
+                    "visibility": "public",
+                    "dry_run": True,
+                },
             }
         )
 
