@@ -7,7 +7,11 @@ UV := "C:\\Users\\sandr\\.local\\bin\\uv.exe"
 REPO := "D:\\Dev\\repos\\civitai-mcp"
 
 install:
-    & "{{UV}}" sync
+    & "{{UV}}" sync --extra dev
+
+bootstrap: install
+    Set-Location "{{REPO}}"; & "{{UV}}" run pre-commit install
+    Write-Host "Pre-commit hooks installed." -ForegroundColor Green
 
 serve:
     Set-Location "{{REPO}}"; powershell.exe -NoProfile -ExecutionPolicy Bypass -File start.ps1
