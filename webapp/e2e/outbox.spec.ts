@@ -1,61 +1,80 @@
 import { expect, test } from "@playwright/test"
 
-test.describe("civitai-mcp webapp + outbox e2e", () => {
+const BE = "http://127.0.0.1:11124"
+
+test.describe("civitai-mcp webapp + queue e2e", () => {
   test("backend health", async ({ request }) => {
-    const r = await request.get("http://127.0.0.1:11124/api/health")
+    const r = await request.get(`${BE}/api/health`)
     expect(r.ok()).toBeTruthy()
     const j = await r.json()
     expect(j.status).toBe("ok")
     expect(j.dry_run).toBeTruthy()
   })
 
-  test("fleet-PR inbound → outbox → approve → dry publish", async ({ request }) => {
-    const enq = await request.post("http://127.0.0.1:11124/api/v1/outbox", {
+  test("queue approval cycle: enqueue -> approve -> reject", async ({ request }) => {
+    const enq = await request.post(`${BE}/api/v1/outbox`, {
       data: {
         schema_version: 1,
-        source: "fleet-public-relations-mcp",
-        repo_id: "mixx-dj-mcp",
+        source: "e2e",
+        repo_id: "e2e-test",
         campaign: "e2e",
-        status_text: "E2E Mixxx MCP pointer — no hype.",
+        status_text: "E2E download approval - no download.",
         visibility: "public",
+        version_id: 0,
+        model_type: "LORA",
       },
     })
     expect(enq.ok()).toBeTruthy()
     const { id } = await enq.json()
     expect(id).toBeTruthy()
 
-    const appr = await request.post(`http://127.0.0.1:11124/api/v1/outbox/${id}/approve`)
+    const list = await request.get(`${BE}/api/v1/outbox`)
+    expect(list.ok()).toBeTruthy()
+    const lj = await list.json()
+    expect(lj.items.some((i: { id: number; status: string }) => i.id === id && i.status === "pending")).toBeTruthy()
+
+    const appr = await request.post(`${BE}/api/v1/outbox/${id}/approve`)
     expect(appr.ok()).toBeTruthy()
+    expect((await appr.json()).success).toBeTruthy()
 
-    const pub = await request.post(`http://127.0.0.1:11124/api/v1/outbox/${id}/publish`)
-    expect(pub.ok()).toBeTruthy()
+    const rej = await request.post(`${BE}/api/v1/outbox/${id}/reject`)
+    expect(rej.ok()).toBeTruthy()
+    expect((await rej.json()).success).toBeTruthy()
+  })
+
+  test("publish requires approval (no network needed to verify the gate)", async ({ request }) => {
+    const enq = await request.post(`${BE}/api/v1/outbox`, {
+      data: {
+        schema_version: 1,
+        source: "e2e",
+        repo_id: "e2e-test",
+        campaign: "e2e",
+        status_text: "E2E publish gate - no download.",
+        visibility: "public",
+        version_id: 0,
+        model_type: "LORA",
+      },
+    })
+    expect(enq.ok()).toBeTruthy()
+    const { id } = await enq.json()
+
+    const pub = await request.post(`${BE}/api/v1/outbox/${id}/publish`)
     const body = await pub.json()
-    expect(body.success).toBeTruthy()
-    expect(body.dry_run).toBeTruthy()
+    expect(body.success).toBeFalsy()
+    expect(body.error).toContain("approved")
   })
 
-  test("notifications inbox dry empty", async ({ request }) => {
-    const r = await request.get("http://127.0.0.1:11124/api/v1/notifications")
-    expect(r.ok()).toBeTruthy()
-    const j = await r.json()
-    expect(j.success).toBeTruthy()
-    expect(j.notifications).toEqual([])
-  })
-
-  test("Dashboard and Outbox pages load; enqueue via Compose", async ({ page }) => {
+  test("Dashboard, Queue, Search and Depot pages load", async ({ page }) => {
     await page.goto("/")
     await expect(page.getByTestId("dashboard")).toBeVisible()
 
-    await page.goto("/outbox")
-    await expect(page.getByRole("heading", { name: "Outbox" })).toBeVisible()
+    await page.goto("/queue")
+    await expect(page.getByRole("heading", { name: "Queue" })).toBeVisible()
 
-    await page.goto("/compose")
-    await expect(page.getByRole("heading", { name: "Compose" })).toBeVisible()
-    await page.locator("textarea").fill("Playwright enqueue — useful pointer only.")
-    await page.getByRole("button", { name: /Enqueue to outbox/i }).click()
-    await expect(page.locator("pre")).toContainText("pending")
+    await page.goto("/search")
+    await expect(page.getByRole("heading", { name: "Search" })).toBeVisible()
 
-    await page.goto("/outbox")
-    await expect(page.getByText("Playwright enqueue")).toBeVisible({ timeout: 10_000 })
+    await page.goto("/depot")
+    await expect(page.getByRole("heading", { name: "Depot" })).toBeVisible()
   })
 })
