@@ -50,3 +50,33 @@ def test_skills_logs_llm(client):
     assert "skills" in client.get("/api/skills").json()
     assert "entries" in client.get("/api/logs").json()
     assert "providers" in client.get("/api/llm/providers").json()
+
+
+def test_settings_get(client):
+    r = client.get("/api/settings")
+    assert r.status_code == 200
+    body = r.json()["settings"]
+    assert body["api_token_set"] is False
+    assert body["dry_run"] is True
+    assert body["depot_dir"]
+
+
+def test_settings_post_token_completes_onboarding(client):
+    r = client.post("/api/settings", json={"api_token": "test-token-123"})
+    assert r.status_code == 200
+    assert r.json()["settings"]["api_token_set"] is True
+    health = client.get("/api/health").json()
+    assert health["instance_configured"] is True
+
+
+def test_settings_post_persists(client):
+    r = client.post(
+        "/api/settings",
+        json={"dry_run": False, "depot_dir": "D:\\weights", "nsfw": True},
+    )
+    body = r.json()["settings"]
+    # isolated_data pins CIVITAI_DRY_RUN=1 + CIVITAI_DEPOT_DIR — env wins
+    assert body["dry_run"] is True
+    assert body["nsfw"] is True
+    again = client.get("/api/settings").json()["settings"]
+    assert again["nsfw"] is True

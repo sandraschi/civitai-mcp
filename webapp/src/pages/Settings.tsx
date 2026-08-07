@@ -81,9 +81,76 @@ function Inner() {
     refetchInterval: 60_000,
   });
 
-  const activeProvider = LLM_PROVIDERS.find(
+  const detected = LLM_PROVIDERS.filter(
     (p) => providers?.providers?.[p.name]?.detected,
   );
+  const [savedProvider, setSavedProvider] = useState<string | null>(() => {
+    try {
+      return localStorage.getItem("llm_provider");
+    } catch {
+      return null;
+    }
+  });
+  const [savedModel, setSavedModel] = useState<string>(() => {
+    try {
+      return localStorage.getItem("llm_model") ?? "";
+    } catch {
+      return "";
+    }
+  });
+
+  const activeProvider = detected.find((p) => p.name === savedProvider)
+    ? savedProvider
+    : (detected[0]?.name ?? null);
+  const activeModels =
+    (activeProvider ? providers?.providers?.[activeProvider]?.models : []) ??
+    [];
+  const effectiveModel = activeModels.includes(savedModel)
+    ? savedModel
+    : (activeModels[0] ?? "");
+
+  useEffect(() => {
+    if (!activeProvider) return;
+    const p = LLM_PROVIDERS.find((x) => x.name === activeProvider);
+    if (p) setOllamaUrl(`http://localhost:${p.port}`);
+    if (activeProvider !== savedProvider) {
+      setSavedProvider(activeProvider);
+      try {
+        localStorage.setItem("llm_provider", activeProvider);
+      } catch {
+        /* localStorage unavailable */
+      }
+    }
+  }, [activeProvider, savedProvider]);
+
+  const onProviderChange = (name: string) => {
+    setSavedProvider(name);
+    try {
+      localStorage.setItem("llm_provider", name);
+    } catch {
+      /* localStorage unavailable */
+    }
+    const models = providers?.providers?.[name]?.models ?? [];
+    const stored = (() => {
+      try {
+        return localStorage.getItem("llm_model") ?? "";
+      } catch {
+        return "";
+      }
+    })();
+    setSavedModel(
+      stored && models.includes(stored) ? stored : (models[0] ?? ""),
+    );
+  };
+
+  const onModelChange = (model: string) => {
+    setSavedModel(model);
+    try {
+      localStorage.setItem("llm_model", model);
+    } catch {
+      /* localStorage unavailable */
+    }
+  };
 
   const providerStatus = (name: string) => {
     const p = providers?.providers?.[name];
@@ -121,6 +188,7 @@ function Inner() {
           type="button"
           onClick={() => saveMutation.mutate()}
           disabled={!form || saveMutation.isPending}
+          data-testid="settings-save"
           className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-violet-600 hover:bg-violet-500 disabled:opacity-50"
         >
           {saveMutation.isPending ? (
@@ -197,6 +265,7 @@ function Inner() {
               type="password"
               value={token}
               onChange={(e) => setToken(e.target.value)}
+              data-testid="settings-token-input"
               placeholder={
                 form.api_token_set
                   ? "Leave blank to keep current"
@@ -296,6 +365,75 @@ function Inner() {
         >
           LLM Providers
         </h2>
+
+        {activeProvider ? (
+          <div className="space-y-3 bg-zinc-900 border border-zinc-800 rounded-lg p-4 mb-3">
+            <div className="space-y-1.5">
+              <label className="text-xs text-zinc-500">Provider</label>
+              <select
+                data-testid="llm-provider-select"
+                value={activeProvider}
+                onChange={(e) => onProviderChange(e.target.value)}
+                className="w-full bg-zinc-950 border border-zinc-700 rounded-lg px-3 py-2 text-sm"
+              >
+                {detected.map((p) => (
+                  <option key={p.name} value={p.name}>
+                    {p.name} (: {p.port})
+                  </option>
+                ))}
+              </select>
+            </div>
+            {activeModels.length > 0 && (
+              <div className="space-y-1.5">
+                <label className="text-xs text-zinc-500">Model</label>
+                <select
+                  data-testid="llm-model-select"
+                  value={effectiveModel}
+                  onChange={(e) => onModelChange(e.target.value)}
+                  className="w-full bg-zinc-950 border border-zinc-700 rounded-lg px-3 py-2 text-sm font-mono"
+                >
+                  {activeModels.map((m) => (
+                    <option key={m} value={m}>
+                      {m}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+            <p className="text-xs text-zinc-600">
+              Selection is used by Chat and Compose assist and persists in this
+              browser.
+            </p>
+          </div>
+        ) : (
+          providers && (
+            <div className="mb-3 bg-amber-900/10 border border-amber-800/30 rounded-lg px-4 py-3 flex items-center gap-2">
+              <Cpu size={16} className="text-amber-400 shrink-0" />
+              <p className="text-sm text-amber-300">
+                No local LLM detected. Install{" "}
+                <a
+                  href="https://ollama.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-amber-200"
+                >
+                  Ollama
+                </a>{" "}
+                or{" "}
+                <a
+                  href="https://lmstudio.ai"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-amber-200"
+                >
+                  LM Studio
+                </a>{" "}
+                for Chat and Compose assist.
+              </p>
+            </div>
+          )
+        )}
+
         <div className="space-y-2">
           {LLM_PROVIDERS.map((p) => {
             const status = providerStatus(p.name);
@@ -318,52 +456,10 @@ function Inner() {
                     </span>
                   )}
                 </div>
-                {activeProvider?.name === p.name &&
-                  models &&
-                  models.length > 0 && (
-                    <select
-                      data-testid="llm-model-select"
-                      className="mt-2 w-full bg-zinc-950 border border-zinc-700 rounded px-2 py-1 text-xs text-zinc-300 font-mono"
-                      defaultValue={models[0]}
-                    >
-                      {models.map((m) => (
-                        <option key={m} value={m}>
-                          {m}
-                        </option>
-                      ))}
-                    </select>
-                  )}
               </div>
             );
           })}
         </div>
-
-        {!activeProvider && providers && (
-          <div className="mt-3 bg-amber-900/10 border border-amber-800/30 rounded-lg px-4 py-3 flex items-center gap-2">
-            <Cpu size={16} className="text-amber-400 shrink-0" />
-            <p className="text-sm text-amber-300">
-              No local LLM detected. Install{" "}
-              <a
-                href="https://ollama.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline hover:text-amber-200"
-              >
-                Ollama
-              </a>{" "}
-              or{" "}
-              <a
-                href="https://lmstudio.ai"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline hover:text-amber-200"
-              >
-                LM Studio
-              </a>{" "}
-              for Chat and Compose assist.
-            </p>
-          </div>
-        )}
       </div>
 
       <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-4">

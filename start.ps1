@@ -27,7 +27,8 @@ $portState = Resolve-FleetPortConflict @portResolve
 if ($portState.Action -eq 'Blocked') { exit 1 }
 if ($portState.Reuse) { return }
 
-if ($Headless -and ($Host.UI.RawUI.WindowTitle -notmatch 'Hidden')) {
+if ($Headless -and -not $env:CIVITAI_MCP_HEADLESS_HANDOFF) {
+    $env:CIVITAI_MCP_HEADLESS_HANDOFF = '1'
     Start-Process powershell -ArgumentList '-NoProfile', '-File', $PSCommandPath, '-Headless' -WindowStyle Hidden
     exit
 }

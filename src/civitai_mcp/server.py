@@ -236,6 +236,44 @@ async def api_dashboard():
     }
 
 
+class SettingsBody(BaseModel):
+    api_token: str | None = None
+    dry_run: bool | None = None
+    require_download_approval: bool | None = None
+    depot_dir: str | None = None
+    nsfw: bool | None = None
+    comfyops_backend_url: str | None = None
+    comfyops_frontend_url: str | None = None
+
+
+def _settings_payload() -> dict:
+    return {
+        "api_token_set": bool(cfg.api_token),
+        "dry_run": cfg.dry_run,
+        "require_download_approval": cfg.require_download_approval,
+        "depot_dir": cfg.depot_dir,
+        "nsfw": cfg.nsfw,
+        "comfyops_backend_url": cfg.comfyops_backend_url,
+        "comfyops_frontend_url": cfg.comfyops_frontend_url,
+    }
+
+
+@app.get("/api/settings")
+async def api_settings_get():
+    return {"success": True, "settings": _settings_payload()}
+
+
+@app.post("/api/settings")
+async def api_settings_post(body: SettingsBody):
+    global cfg
+    from civitai_mcp import config as cfg_mod
+
+    cfg_mod.save_settings(**body.model_dump(exclude_none=True))
+    cfg_mod.get_settings.cache_clear()
+    cfg = cfg_mod.get_settings()
+    return {"success": True, "settings": _settings_payload()}
+
+
 @app.get("/api/skills")
 async def api_skills():
     root = Path(__file__).parent / "skills"

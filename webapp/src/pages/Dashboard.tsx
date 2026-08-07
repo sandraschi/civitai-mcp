@@ -103,7 +103,10 @@ function Inner({ backendOk }: { backendOk: boolean | null }) {
       data-testid="dashboard"
     >
       {/* HERO */}
-      <div className="relative overflow-hidden rounded-2xl border border-zinc-800 bg-gradient-to-br from-violet-950/50 via-zinc-900 to-zinc-950 p-6 sm:p-8 mb-4">
+      <div
+        data-testid="hero"
+        className="relative overflow-hidden rounded-2xl border border-zinc-800 bg-gradient-to-br from-violet-950/50 via-zinc-900 to-zinc-950 p-6 sm:p-8 mb-4"
+      >
         <div className="absolute top-0 right-0 w-48 h-48 bg-violet-500/10 rounded-full blur-3xl" />
         <div className="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
@@ -141,13 +144,23 @@ function Inner({ backendOk }: { backendOk: boolean | null }) {
             </div>
           </div>
           <div className="flex flex-col gap-2 shrink-0">
-            <Link
-              to="/search"
-              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium transition-colors"
-              data-testid="hero-cta-search"
-            >
-              Search models <ArrowRight size={16} />
-            </Link>
+            {!onboarded ? (
+              <Link
+                to="/settings"
+                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium transition-colors"
+                data-testid="hero-cta-onboarding"
+              >
+                Configure API token <ArrowRight size={16} />
+              </Link>
+            ) : (
+              <Link
+                to="/search"
+                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium transition-colors"
+                data-testid="hero-cta-search"
+              >
+                Search models <ArrowRight size={16} />
+              </Link>
+            )}
             <Link
               to="/depot"
               className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg border border-zinc-700 hover:border-zinc-500 text-zinc-200 text-sm font-medium transition-colors"

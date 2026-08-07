@@ -49,3 +49,5 @@ build-native-debug:
     $env:Path = "$env:USERPROFILE\\.cargo\\bin;$env:Path"
     Set-Location "{{REPO}}\\src-tauri"
     npx @tauri-apps/cli build --debug
+
+# Bootstrap: install dev deps + pre-commit hook

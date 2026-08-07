@@ -237,6 +237,12 @@ dev = [
     { name = "ruff" },
 ]
 
+[package.dev-dependencies]
+dev = [
+    { name = "pytest" },
+    { name = "pytest-asyncio" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "fastapi", specifier = ">=0.104.0" },
@@ -252,6 +258,12 @@ requires-dist = [
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.23.0" },
 ]
 provides-extras = ["dev"]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "pytest", specifier = ">=9.1.1" },
+    { name = "pytest-asyncio", specifier = ">=0.23" },
+]
 
 [[package]]
 name = "click"
