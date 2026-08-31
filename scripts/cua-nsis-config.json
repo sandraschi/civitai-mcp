@@ -1,0 +1,46 @@
+{
+  "product_name": "Civitai MCP",
+  "install_dir": "%LOCALAPPDATA%\\Civitai MCP",
+  "operator_exe": "civitai-mcp-native.exe",
+  "backend_process_names": [
+    "civitai-mcp-native",
+    "civitai-mcp-backend"
+  ],
+  "backend_port": 11124,
+  "health_path": "/health",
+  "diagnostics_path": "/api/v1/diagnostics",
+  "feature_smoke_path": "/api/v1/system/info",
+  "window_title_re": "Civitai MCP",
+  "nsis_glob": "src-tauri/target/release/bundle/nsis/Civitai MCP_*_x64-setup.exe",
+  "bridge_ok_text": "REST bridge reachable",
+  "uninstall_registry_filter": "*Civitai MCP*",
+  "frontend_port": 11125,
+  "nav_routes": [
+    [
+      "Dashboard",
+      "Overview"
+    ],
+    [
+      "Browse",
+      "Browse"
+    ],
+    [
+      "Downloads",
+      "Downloads"
+    ],
+    [
+      "Settings",
+      "Settings"
+    ],
+    [
+      "Help",
+      "Help"
+    ]
+  ],
+  "sidebar_click_x": 30,
+  "sidebar_first_y": 90,
+  "sidebar_step_y": 55,
+  "connected_badge_text": "connected",
+  "backend_timeout": 30,
+  "frontend_timeout": 30
+}
