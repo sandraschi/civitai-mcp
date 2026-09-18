@@ -37,7 +37,7 @@ test-e2e:
 
 # Bundle MCP server for Claude Desktop (MCPB)
 mcpb-pack:
-    Set-Location "{{REPO}}"; powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/mcpb-pack.ps1
+    powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\Dev\repos\mcp-central-docs\scripts\make-mcpb.ps1" -RepoPath "{{REPO}}"
 
 # Tauri NSIS release build (requires icons, PyInstaller spec, webapp dist)
 build-native:
@@ -46,8 +46,6 @@ build-native:
 
 # Tauri debug build (skip PyInstaller when backend exe already in resources/)
 build-native-debug:
-    $env:Path = "$env:USERPROFILE\\.cargo\\bin;$env:Path"
-    Set-Location "{{REPO}}\\src-tauri"
-    npx @tauri-apps/cli build --debug
+    $env:Path = "$env:USERPROFILE\\.cargo\\bin;$env:Path"; Set-Location "{{REPO}}\\src-tauri"; npx @tauri-apps/cli build --debug
 
 # Bootstrap: install dev deps + pre-commit hook
