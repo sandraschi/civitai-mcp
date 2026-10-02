@@ -1,4 +1,4 @@
-"""civitai_models portmanteau — catalog + depot pin for comfyops."""
+"""civitai_models portmanteau - catalog + depot pin for comfyops."""
 
 from __future__ import annotations
 
@@ -101,7 +101,7 @@ async def civitai_models(
                 return {
                     "success": False,
                     "error": (
-                        "live download blocked — outbox_enqueue then approve + outbox_publish "
+                        "live download blocked - outbox_enqueue then approve + outbox_publish "
                         "(or set CIVITAI_REQUIRE_DOWNLOAD_APPROVAL=0)"
                     ),
                 }
@@ -175,7 +175,7 @@ async def civitai_models(
             outbox.mark_published(outbox_id, result.get("path") or str(vid))
         elif result.get("success") and result.get("dry_run"):
             result["message"] = (
-                "dry_run download OK — set CIVITAI_DRY_RUN=0 and API token to save weights"
+                "dry_run download OK - set CIVITAI_DRY_RUN=0 and API token to save weights"
             )
         return result
 

@@ -40,7 +40,21 @@ if (-not (Test-Path $specFile)) {
     throw "Missing $specFile - add PyInstaller spec before build-native (see mcp-central-docs/standards/rules/tauri_nsis_building.md)"
 }
 Push-Location $Root
-uv run pyinstaller "$specFile" --clean --noconfirm
+# PyInstaller MUST run from the project venv, not `uv run pyinstaller` --
+# that resolves to the isolated global uv-tool environment (no project
+# packages visible there), so copy_metadata("fastmcp") in the spec file
+# silently fails and the frozen exe crashes with PackageNotFoundError at
+# import time. See TAURI_PRODUCTION_PITFALLS.md sec 13 #12-13.
+$pyiExe = "$Root\.venv\Scripts\pyinstaller.exe"
+if (-not (Test-Path $pyiExe)) {
+    Write-Host "  pyinstaller missing from project venv - adding as dev dependency" -ForegroundColor Yellow
+    Push-Location $Root
+    uv add --dev pyinstaller pefile altgraph
+    uv sync
+    Pop-Location
+}
+Remove-Item "$Root\dist\${RepoName}-backend.exe" -Force -ErrorAction SilentlyContinue
+& $pyiExe "$specFile" --clean --noconfirm
 if ($LASTEXITCODE -ne 0) { throw "PyInstaller failed with exit code $LASTEXITCODE" }
 Pop-Location
 

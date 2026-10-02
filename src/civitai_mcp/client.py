@@ -1,4 +1,4 @@
-"""Civitai REST client — search is public; downloads need API token; dry_run short-circuits writes."""
+"""Civitai REST client - search is public; downloads need API token; dry_run short-circuits writes."""
 
 from __future__ import annotations
 
@@ -253,7 +253,7 @@ async def download_version(
         return {
             "success": True,
             "dry_run": True,
-            "message": "dry_run — not downloaded",
+            "message": "dry_run - not downloaded",
             "version_id": version_id,
             "dest": str(dest),
             "sizeKB": primary.get("sizeKB"),
@@ -292,7 +292,7 @@ async def download_version(
             "path": str(dest),
             "bytes": dest.stat().st_size,
             "comfyops_folder": sub,
-            "message": f"saved to {dest} — point ComfyUI/comfyops models at {cfg.depot_dir}",
+            "message": f"saved to {dest} - point ComfyUI/comfyops models at {cfg.depot_dir}",
         }
     except OSError as exc:
         return {"success": False, "error": str(exc)}

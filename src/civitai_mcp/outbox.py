@@ -1,4 +1,4 @@
-"""SQLite outbox for fleet-PR drafts — pending → approved → published|rejected."""
+"""SQLite outbox for fleet-PR drafts - pending → approved → published|rejected."""
 
 from __future__ import annotations
 
@@ -70,7 +70,7 @@ def enqueue(payload: dict[str, Any]) -> dict[str, Any]:
         "id": cur.lastrowid,
         "outbox_id": cur.lastrowid,
         "status": "pending",
-        "message": "queued — human approve required before publish",
+        "message": "queued - human approve required before publish",
     }
 
 
