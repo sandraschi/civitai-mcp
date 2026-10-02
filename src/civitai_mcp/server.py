@@ -1,9 +1,10 @@
-"""civitai-mcp FastMCP + FastAPI — ports 11124 (HTTP/MCP). Catalog + comfyops depot pin."""
+"""civitai-mcp FastMCP + FastAPI - ports 11124 (HTTP/MCP). Catalog + comfyops depot pin."""
 
 from __future__ import annotations
 
 import logging
 import os
+from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Any
@@ -13,6 +14,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastmcp import FastMCP
 from fastmcp.server.providers.skills import SkillsDirectoryProvider
+from fastmcp.tools.base import ToolResult
 from pydantic import BaseModel, Field
 
 from civitai_mcp import outbox
@@ -29,7 +31,7 @@ mcp = FastMCP(
     instructions=(
         "Civitai marketplace bridge. Search models/LoRAs publicly; "
         "download into comfyops model folders with dry-run + human outbox gate. "
-        "Complements comfyops-mcp — do not run Comfy graphs here."
+        "Complements comfyops-mcp - do not run Comfy graphs here."
     ),
 )
 
@@ -46,11 +48,18 @@ async def civitai_depot_prompt() -> str:
         "Pin via outbox_enqueue → approve → outbox_publish (download) into CIVITAI_DEPOT_DIR "
         "(defaults to COMFYOPS_MODELS_DIR / COMFYUI_MODELS_DIR).\n"
         "Respect CIVITAI_DRY_RUN=1 until intentional. Need CIVITAI_API_TOKEN for real downloads.\n"
-        "Then run workflows in comfyops-mcp — this server only catalogs and fetches weights."
+        "Then run workflows in comfyops-mcp - this server only catalogs and fetches weights."
     )
 
 
-@mcp.tool()
+@mcp.tool(
+    annotations={
+        "readOnlyHint": False,
+        "destructiveHint": False,
+        "idempotentHint": False,
+        "openWorldHint": False,
+    }
+)
 async def civitai_models_tool(
     operation: str,
     query: str = "",
@@ -102,7 +111,14 @@ async def civitai_models_tool(
     )
 
 
-@mcp.tool()
+@mcp.tool(
+    annotations={
+        "readOnlyHint": True,
+        "destructiveHint": False,
+        "idempotentHint": True,
+        "openWorldHint": False,
+    }
+)
 async def civitai_help() -> dict:
     """Help for civitai-mcp."""
     return {
@@ -117,14 +133,29 @@ async def civitai_help() -> dict:
     }
 
 
-@mcp.tool()
+@mcp.tool(
+    annotations={
+        "readOnlyHint": False,
+        "destructiveHint": True,
+        "idempotentHint": False,
+        "openWorldHint": False,
+    }
+)
 async def civitai_shutdown() -> dict:
     """Signal graceful shutdown (process exit left to host)."""
     return {"success": True, "message": "Shutdown signal acknowledged"}
 
 
-@mcp.tool(app=True)
-async def show_depot_card() -> dict:
+@mcp.tool(
+    app=True,
+    annotations={
+        "readOnlyHint": True,
+        "destructiveHint": False,
+        "idempotentHint": True,
+        "openWorldHint": False,
+    },
+)
+async def show_depot_card() -> ToolResult | dict[str, Any]:
     """Prefab card: local depot file count + pending download outbox."""
     from civitai_mcp import client as civ_client
 
@@ -142,8 +173,7 @@ async def show_depot_card() -> dict:
             "pending": pending,
             "depot": cfg.depot_dir,
         }
-    app = PrefabApp(title="Civitai Depot")
-    with app:
+    with PrefabApp(title="Civitai Depot") as card:
         Heading("Depot", level=2)
         Text(f"{local.get('count', 0)} local files · {pending} pending downloads")
         Muted(cfg.depot_dir)
@@ -151,11 +181,14 @@ async def show_depot_card() -> dict:
         for row in [i for i in items if i.get("status") == "pending"][:6]:
             with Card(), CardContent():
                 Text((row.get("status_text") or "")[:160])
-    return app.output()
+    return ToolResult(
+        content=f"Civitai Depot - {local.get('count', 0)} local files, {pending} pending",
+        structured_content=card,
+    )
 
 
 @asynccontextmanager
-async def lifespan(_app: FastAPI):
+async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     os.makedirs(cfg.data_dir, exist_ok=True)
     Path(cfg.depot_dir).mkdir(parents=True, exist_ok=True)
     outbox._db()
@@ -268,7 +301,8 @@ async def api_settings_post(body: SettingsBody):
     global cfg
     from civitai_mcp import config as cfg_mod
 
-    cfg_mod.save_settings(**body.model_dump(exclude_none=True))
+    payload: dict[str, Any] = body.model_dump(exclude_none=True)
+    cfg_mod.save_settings(**payload)
     cfg_mod.get_settings.cache_clear()
     cfg = cfg_mod.get_settings()
     return {"success": True, "settings": _settings_payload()}

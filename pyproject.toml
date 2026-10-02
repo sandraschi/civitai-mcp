@@ -40,7 +40,15 @@ asyncio_mode = "auto"
 testpaths = ["tests"]
 
 [dependency-groups]
+# NOTE: [project.optional-dependencies] dev is kept for CI (`uv sync --extra dev`);
+# local `uv sync` uses this group - keep both lists in sync.
 dev = [
+    "pillow>=12.3.0",
+    "pytesseract>=0.3.13",
     "pytest>=9.1.1",
     "pytest-asyncio>=0.23",
+    "ruff>=0.16.0,<0.17",
+    "pre-commit>=4.6.1",
+    "pyright>=1.1.390",
+    "pywinauto>=0.6.9",
 ]

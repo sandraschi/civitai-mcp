@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased] (assfix 2026-10-02, first full pass)
+- Fixed Prefab card crash (`app.output()` → ToolResult pattern), lifespan/body annotations
+- Tool annotations on all 4 tools; unified dev deps (ruff/pytest/pyright installable via plain `uv sync`)
+- Deleted stale `.bak` files
+
 ## v0.1.1 (2026-07-26)
 
 - SOTA webapp catch-them-all: Dashboard (hero + KPIs), Inbox, Tools, Skills, Chat, Help page, Logs modal
