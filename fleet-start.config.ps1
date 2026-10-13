@@ -1,4 +1,4 @@
-﻿# Per-repo fleet start config for civitai-mcp
+# Per-repo fleet start config for civitai-mcp
 # Edit ports/backend target here - start.ps1 is fleet-standard.
 @{
     Name         = 'civitai-mcp'
@@ -10,6 +10,7 @@
         Kind          = 'uvicorn'
         UvicornTarget = 'civitai_mcp.server:app'
         SyncExtras    = @('dev')
+        SyncOnStart  = $true
         Env           = @{ WEB_PORT = '11124' }
     }
     Frontend = @{
